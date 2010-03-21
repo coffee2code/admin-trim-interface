@@ -1,7 +1,7 @@
 <?php
 /*
 Plugin Name: Admin Trim Interface
-Version: 1.0
+Version: 1.1
 Plugin URI: http://coffee2code.com/wp-plugins/admin-trim-interface
 Author: Scott Reilly
 Author URI: http://coffee2code.com
@@ -141,9 +141,9 @@ class AdminTrimInterface {
 		if ( $options['hide_page_heading_icon'] )
 			$css[] = '#icon-index, .icon32';
 		if ( $options['hide_username'] )
-			$css[] = '#user_info p > a[title=\'Edit your profile\']';
+			$css[] = '#user_info p > a[href=\'profile.php\']';
 
-		// Hack to make 
+		// Hack
 		$extra_css = '#wphead #site-title { display:inline; }';
 
 		if ( !empty($css) ) {
@@ -162,6 +162,9 @@ CSS;
 
 		$js = array();
 
+		if ( $options['hide_dashboard'] )
+			$js[] = "\$('.wp-menu-separator:first').remove();";
+
 		if ( $options['hide_turbo_link'] )
 			$js[] = "\$('.turbo-nag').remove();";
 
@@ -171,17 +174,15 @@ CSS;
 			$js[] = "\$('#user_info p:first').remove();";
 		}
 
-		if ( $options['hide_visit_site_link'] )
+		if ( $options['hide_help'] )
 			$js[] = "\$('#contextual-help-link-wrap').remove();";
 
 		if ( $options['hide_howdy'] && $options['hide_username'] )
 			$js[] = "\$('.turbo-nag').html(\$('.turbo-nag a'))";
 
-//		if ( $options['hide_username'] )
-//			$js[] = "\$('#user_info p > a:first').hide();";
-
-		if ( !$options['hide_turbo_link'] || !$options['hide_username'] )
-			$js[] = "\$('#user_info a[title=\'Log Out\']').before(' | ');";
+		if ( (!$options['hide_username'] && ($options['hide_turbo_link'] && $options['hide_howdy']) ) ||
+			 ($options['hide_howdy'] && (!$options['hide_turbo_link'] || !$options['hide_username']) ) )
+			$js[] = "\$('#user_info p a:last').before(' | ');";
 		
 		if ( !empty($js) ) {
 			$js = implode("\n", $js);
@@ -209,7 +210,6 @@ JS;
 	function plugin_action_links($action_links) {
 		$settings_link = '<a href="themes.php?page='.$this->plugin_basename.'">' . __('Settings') . '</a>';
 		array_unshift( $action_links, $settings_link );
-
 		return $action_links;
 	}
 
@@ -220,13 +220,13 @@ JS;
 		foreach ( array_keys($this->config) as $opt ) {
 			$options[$opt] = $this->config[$opt]['default'];
 		}
-        $existing_options = get_option($this->admin_options_name);
-        if ( !empty($existing_options) ) {
-            foreach ($existing_options as $key => $value)
-                $options[$key] = $value;
-        }            
+		$existing_options = get_option($this->admin_options_name);
+		if ( !empty($existing_options) ) {
+			foreach ($existing_options as $key => $value)
+				$options[$key] = $value;
+		}
 		$this->options = $options;
-        return $options;
+		return $options;
 	}
 
 	function maybe_save_options() {
@@ -342,10 +342,11 @@ END;
 					}
 					echo "</tr>";
 				}
+		$save_text = __('Save Changes');
 		echo <<<END
 			</table>
 			<input type="hidden" name="submitted" value="1" />
-			<div class="submit"><input type="submit" name="Submit" class="button-primary" value="Save Changes" /></div>
+			<div class="submit"><input type="submit" name="Submit" class="button-primary" value="$save_text" /></div>
 		</form>
 			</div>
 END;

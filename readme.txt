@@ -1,11 +1,11 @@
 === Admin Trim Interface ===
-Contributors: 
+Contributors: coffee2code
 Donate link: http://coffee2code.com
 Tags: admin, interface, minimal, customize, coffee2code
 Requires at least: 2.7
-Tested up to: 2.8.2
-Stable tag: 1.0
-Version: 1.0
+Tested up to: 2.8.4
+Stable tag: 1.1
+Version: 1.1
 
 Customize the WordPress admin pages by selectively removing interface elements.
 
@@ -53,6 +53,15 @@ No. The settings for the plugin apply to all users within the admin pages and no
 
 
 == Changelog ==
+
+= 1.1 =
+* Change CSS selector usage in two places to not rely on text which may get translated (fixes inability to hide username link when translated)
+* Fixed so that "|" is properly inserted as separator for upper-right links only when necessary under various visible/hidden combinations
+* Hide topmost menu separator when dashboard menu link is hidden
+* Fixed hiding of contextual help link
+* Added missing c2c_minilogo.png
+* Facilitated translation of 'Save Changes'
+* Minor code reformatting (spacing)
 
 = 1.0 =
 * Initial release
