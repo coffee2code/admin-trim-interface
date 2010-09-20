@@ -1,0 +1,180 @@
+# Translation of the WordPress plugin Admin Trim Interface 2.0 by Scott Reilly.
+# Copyright (C) 2010 Scott Reilly
+# This file is distributed under the same license as the Admin Trim Interface package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2010.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: Admin Trim Interface 2.0\n"
+"Report-Msgid-Bugs-To: http://wordpress.org/tag/admin-trim-interface\n"
+"POT-Creation-Date: 2010-09-20 15:27-0400\n"
+"PO-Revision-Date: 2010-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#. #-#-#-#-#  admin-trim-interface.pot (Admin Trim Interface 2.0)  #-#-#-#-#
+#. Plugin Name of the plugin/theme
+#: admin-trim-interface.php:59 admin-trim-interface.php:60
+msgid "Admin Trim Interface"
+msgstr ""
+
+#: admin-trim-interface.php:64
+msgid "1. Hide WordPress logo in header?"
+msgstr ""
+
+#: admin-trim-interface.php:66
+msgid "2. Hide \"Visit site\" link?"
+msgstr ""
+
+#: admin-trim-interface.php:68
+msgid "2. Hide \"Search Engines Blocked\" link?"
+msgstr ""
+
+#: admin-trim-interface.php:70
+msgid "3. Hide favorite actions shortcuts?"
+msgstr ""
+
+#: admin-trim-interface.php:72
+msgid "4. Hide \"Howdy\"?"
+msgstr ""
+
+#: admin-trim-interface.php:74
+msgid "5. Hide username profile link?"
+msgstr ""
+
+#: admin-trim-interface.php:76
+msgid "5b. Hide \"Turbo\" link?"
+msgstr ""
+
+#: admin-trim-interface.php:78
+msgid "6. Hide Dashboard menu link?"
+msgstr ""
+
+#: admin-trim-interface.php:80
+msgid "7. Hide page heading icon?"
+msgstr ""
+
+#: admin-trim-interface.php:82
+msgid "8. Hide contextual \"Help\" link?"
+msgstr ""
+
+#: admin-trim-interface.php:84
+msgid "9. Hide footer links?"
+msgstr ""
+
+#: admin-trim-interface.php:86
+msgid "10. Hide WordPress version in footer?"
+msgstr ""
+
+#: admin-trim-interface.php:110
+msgid ""
+"Unable to perform action: Your WordPress session has expired.  Please login "
+"and try again."
+msgstr ""
+
+#: admin-trim-interface.php:218
+msgid "Admin Trim Interface Settings"
+msgstr ""
+
+#: admin-trim-interface.php:219
+msgid ""
+"Use the image at the bottom to correlate the settings below with the admin "
+"interface element they hide."
+msgstr ""
+
+#: admin-trim-interface.php:220
+msgid ""
+"Note: These settings are global and will affect all users who are able to "
+"visit the admin pages."
+msgstr ""
+
+#: c2c-plugin.php:59
+#, php-format
+msgid "Invalid file specified for C2C_Plugin: %s"
+msgstr ""
+
+#: c2c-plugin.php:232
+msgid "Settings reset."
+msgstr ""
+
+#: c2c-plugin.php:243 c2c-plugin.php:251
+#, php-format
+msgid "A value is required for: \"%s\""
+msgstr ""
+
+#: c2c-plugin.php:260
+#, php-format
+msgid "Expected integer value for: %s"
+msgstr ""
+
+#: c2c-plugin.php:370
+#, php-format
+msgid "More information about %1$s %2$s"
+msgstr ""
+
+#: c2c-plugin.php:371
+msgid "Click for more help on this plugin"
+msgstr ""
+
+#: c2c-plugin.php:372
+msgid " (especially check out the \"Other Notes\" tab, if present)"
+msgstr ""
+
+#: c2c-plugin.php:463
+msgid "Settings"
+msgstr ""
+
+#: c2c-plugin.php:674
+msgid "See the \"Help\" link to the top-right of the page for more help."
+msgstr ""
+
+#: c2c-plugin.php:692
+msgid "A plugin by coffee2code"
+msgstr ""
+
+#: c2c-plugin.php:703
+msgid "Save Changes"
+msgstr ""
+
+#: c2c-plugin.php:704
+msgid "Reset Settings"
+msgstr ""
+
+#: c2c-plugin.php:710
+msgid "Scott Reilly, aka coffee2code"
+msgstr ""
+
+#: c2c-plugin.php:711
+#, php-format
+msgid "This plugin brought to you by %s."
+msgstr ""
+
+#: c2c-plugin.php:712
+msgid "Please consider a donation"
+msgstr ""
+
+#: c2c-plugin.php:713
+msgid "Did you find this plugin useful?"
+msgstr ""
+
+#. Plugin URI of the plugin/theme
+msgid "http://coffee2code.com/wp-plugins/admin-trim-interface/"
+msgstr ""
+
+#. Description of the plugin/theme
+msgid ""
+"Customize the WordPress admin pages by selectively removing interface "
+"elements."
+msgstr ""
+
+#. Author of the plugin/theme
+msgid "Scott Reilly"
+msgstr ""
+
+#. Author URI of the plugin/theme
+msgid "http://coffee2code.com"
+msgstr ""
