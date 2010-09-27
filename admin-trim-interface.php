@@ -2,11 +2,11 @@
 /**
  * @package Admin_Trim_Interface
  * @author Scott Reilly
- * @version 2.0
+ * @version 2.0.1
  */
 /*
 Plugin Name: Admin Trim Interface
-Version: 2.0
+Version: 2.0.1
 Plugin URI: http://coffee2code.com/wp-plugins/admin-trim-interface/
 Author: Scott Reilly
 Author URI: http://coffee2code.com
@@ -41,13 +41,13 @@ if ( is_admin() && !class_exists( 'c2c_AdminTrimInterface' ) ) :
 
 require_once( 'c2c-plugin.php' );
 
-class c2c_AdminTrimInterface extends C2C_Plugin_014 {
+class c2c_AdminTrimInterface extends C2C_Plugin_016 {
 
 	/**
 	 * Constructor
 	 */
 	function c2c_AdminTrimInterface() {
-		$this->C2C_Plugin_014( '2.0', 'admin-trim-interface', 'c2c', __FILE__, array( 'settings_page' => 'themes' ) );
+		$this->C2C_Plugin_016( '2.0.1', 'admin-trim-interface', 'c2c', __FILE__, array( 'settings_page' => 'themes' ) );
 	}
 
 	/**

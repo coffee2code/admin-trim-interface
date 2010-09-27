@@ -2,7 +2,7 @@
 /**
  * @package C2C_Plugins
  * @author Scott Reilly
- * @version 014
+ * @version 016
  */
 /*
 Basis for other plugins
@@ -32,9 +32,9 @@ LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRA
 IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
-if ( !class_exists( 'C2C_Plugin_014' ) ) :
+if ( !class_exists( 'C2C_Plugin_016' ) ) :
 
-class C2C_Plugin_014 {
+class C2C_Plugin_016 {
 	var $plugin_css_version = '006';
 	var $options = array();
 	var $option_names = array();
@@ -52,7 +52,7 @@ class C2C_Plugin_014 {
 	 * @param array $plugin_options (optional) Array specifying further customization of plugin configuration.
 	 * @return void
 	 */
-	function C2C_Plugin_014( $version, $id_base, $author_prefix, $file, $plugin_options = array() ) {
+	function C2C_Plugin_016( $version, $id_base, $author_prefix, $file, $plugin_options = array() ) {
 		global $pagenow;
 		$id_base = sanitize_title( $id_base );
 		if ( !file_exists( $file ) )
@@ -123,6 +123,15 @@ class C2C_Plugin_014 {
 	function uninstall() {
 		delete_option( $this->admin_options_name );
 	}
+
+	/**
+	 * Handles deactivation tasks
+	 *
+	 * This should be overridden.
+	 *
+	 * @return void
+	 */
+	function deactivate() { }
 
 	/**
 	 * Handles actions to be hooked to 'init' action, such as loading text domain and loading plugin config data array.
@@ -259,6 +268,7 @@ class C2C_Plugin_014 {
 								if ( !empty( $val ) && ( !is_numeric( $val ) || ( intval( $val ) != round( $val ) ) ) ) {
 									$msg = sprintf( __( 'Expected integer value for: %s', $this->textdomain ), $this->config[$opt]['label'] );
 									$error = true;
+									$val = '';
 								}
 								break;
 							case 'array':
@@ -357,10 +367,10 @@ class C2C_Plugin_014 {
 	 *
 	 * @param string $contextual_help The default contextual help
 	 * @param int $screen_id The screen ID
-	 * @param object $screen The screen object
+	 * @param object $screen The screen object (only supplied in WP 3.0)
 	 * @return void (Text is echoed)
 	 */
-	function contextual_help( $contextual_help, $screen_id, $screen ) {
+	function contextual_help( $contextual_help, $screen_id, $screen = null ) {
 		if ( $screen_id != $this->options_page )
 			return $contextual_help;
 
@@ -542,6 +552,25 @@ CSS;
 			}
 		}
 		return apply_filters( $this->get_hook( 'options' ), $this->options );
+	}
+
+	/**
+	 * Gets the name to use for a form's <input type="hidden" name="XXX" value="1" />
+	 *
+	 * @param string $prefix A prefix string, unique to the form
+	 * @return string The name
+	 */
+	function get_form_submit_name( $prefix ) {
+		return $prefix . '_' . $this->u_id_base;
+	}
+
+	/**
+	 * Returns the URL for a plugin's form to use for its action attribute
+	 *
+	 * @return string The action URL
+	 */
+	function form_action_url() {
+		return $_SERVER['PHP_SELF'] . '?page=' . $this->plugin_basename;
 	}
 
 	/**

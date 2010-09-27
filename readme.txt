@@ -4,8 +4,8 @@ Donate link: http://coffee2code.com
 Tags: admin, interface, minimal, customize, coffee2code
 Requires at least: 2.8
 Tested up to: 3.0.1
-Stable tag: 2.0
-Version: 2.0
+Stable tag: 2.0.1
+Version: 2.0.1
 
 Customize the WordPress admin pages by selectively removing interface elements.
 
@@ -36,7 +36,7 @@ Note: These settings are global and will affect all users who are able to visit 
 
 == Installation ==
 
-1. Unzip `admin-trim-interface.zip` inside the `/wp-content/plugins/` directory for your site
+1. Unzip `admin-trim-interface.zip` inside the `/wp-content/plugins/` directory for your site (or install via the built-in WordPress plugin installer)
 1. Activate the plugin through the 'Plugins' admin menu in WordPress
 1. Click the plugin's 'Settings' link next to its 'Deactivate' link (still on the Plugins page), or click on the Theme -> Admin Trim Interface link, to go to the plugin's admin settings page.  Customize the settings to selectively remove admin interface elements.
 
@@ -56,6 +56,9 @@ No. The settings for the plugin apply to all users within the admin pages and no
 
 
 == Changelog ==
+
+= 2.0.1 =
+* Update plugin framework to 016
 
 = 2.0 =
 * Re-implementation by extending C2C_Plugin_014, which among other things adds support for:
@@ -96,6 +99,9 @@ No. The settings for the plugin apply to all users within the admin pages and no
 
 
 == Upgrade Notice ==
+
+= 2.0.1 =
+Minor bugfix update of underlying plugin framework.
 
 = 2.0 =
 Recommended update! This release fixes WP 3.0 compatibility. It also includes major re-implementation, bug fixes, localization support, and more.
