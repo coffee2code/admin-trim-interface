@@ -2,18 +2,18 @@
 /**
  * @package Admin_Trim_Interface
  * @author Scott Reilly
- * @version 2.0.1
+ * @version 2.0.2
  */
 /*
 Plugin Name: Admin Trim Interface
-Version: 2.0.1
+Version: 2.0.2
 Plugin URI: http://coffee2code.com/wp-plugins/admin-trim-interface/
 Author: Scott Reilly
 Author URI: http://coffee2code.com
 Text Domain: admin-trim-interface
 Description: Customize the WordPress admin pages by selectively removing interface elements.
 
-Compatible with WordPress 2.8+, 2.9+, 3.0+.
+Compatible with WordPress 2.8+, 2.9+, 3.0+, 3.1+.
 
 =>> Read the accompanying readme.txt file for instructions and documentation.
 =>> Also, visit the plugin's homepage for additional information and updates.
@@ -22,7 +22,7 @@ Compatible with WordPress 2.8+, 2.9+, 3.0+.
 */
 
 /*
-Copyright (c) 2009-2010 by Scott Reilly (aka coffee2code)
+Copyright (c) 2009-2011 by Scott Reilly (aka coffee2code)
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation
 files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy,
@@ -41,13 +41,25 @@ if ( is_admin() && !class_exists( 'c2c_AdminTrimInterface' ) ) :
 
 require_once( 'c2c-plugin.php' );
 
-class c2c_AdminTrimInterface extends C2C_Plugin_016 {
+class c2c_AdminTrimInterface extends C2C_Plugin_021 {
 
 	/**
 	 * Constructor
 	 */
-	function c2c_AdminTrimInterface() {
-		$this->C2C_Plugin_016( '2.0.1', 'admin-trim-interface', 'c2c', __FILE__, array( 'settings_page' => 'themes' ) );
+	public static function c2c_AdminTrimInterface() {
+		$this->C2C_Plugin_021( '2.0.2', 'admin-trim-interface', 'c2c', __FILE__, array( 'settings_page' => 'themes' ) );
+		register_uninstall_hook( __FILE__, array( __CLASS__, 'uninstall' ) );
+	}
+
+	/**
+	 * Handles uninstallation tasks, such as deleting plugin options.
+	 *
+	 * This can be overridden.
+	 *
+	 * @return void
+	 */
+	public static function uninstall() {
+		delete_option( 'c2c_admin_trim_interface' );
 	}
 
 	/**
@@ -55,7 +67,7 @@ class c2c_AdminTrimInterface extends C2C_Plugin_016 {
 	 *
 	 * @return void
 	 */
-	function load_config() {
+	public static function load_config() {
 		$this->name = __( 'Admin Trim Interface', $this->textdomain );
 		$this->menu_name = __( 'Admin Trim Interface', $this->textdomain );
 
@@ -92,7 +104,7 @@ class c2c_AdminTrimInterface extends C2C_Plugin_016 {
 	 *
 	 * @return void
 	 */
-	function register_filters() {
+	public static function register_filters() {
 		add_action( 'admin_head', array( &$this, 'add_admin_css' ) );
 		add_action( 'admin_menu', array( &$this, 'admin_menu' ) );
 		add_action( 'admin_print_footer_scripts', array( &$this, 'add_admin_js' ) );
@@ -106,7 +118,7 @@ class c2c_AdminTrimInterface extends C2C_Plugin_016 {
 	 * @param string $msg The message WordPress would have shown
 	 * @return string The error message
 	 */
-	function explain_nonce( $msg ) {
+	public static function explain_nonce( $msg ) {
 		return __( 'Unable to perform action: Your WordPress session has expired.  Please login and try again.' );
 	}
 
@@ -115,16 +127,16 @@ class c2c_AdminTrimInterface extends C2C_Plugin_016 {
 	 *
 	 * @return void (Text is echoed.)
 	 */
-	function add_admin_css() {
+	public static function add_admin_css() {
 		$options = $this->get_options();
 
 		$css = array();
 
 		if ( $options['hide_wp_logo'] )
 			$css[] = '#header-logo';
-		if ( $options['hide_visit_site_link'] )
+		if ( $this->is_option_valid( 'hide_visit_site_link' ) && $options['hide_visit_site_link'] )
 			$css[] = '#wphead h1 a span, #wphead #site-visit-button'; // In WP2.8+ this just needs to be: #wphead #site-visit-button
-		if ( $options['hide_search_engines_blocked'] )
+		if ( $this->is_option_valid( 'hide_search_engines_blocked' ) && $options['hide_search_engines_blocked'] )
 			$css[] = '#privacy-on-link'; // For WP3.0+ the site link was replaced by the search enginges blocked link
 		if ( $options['hide_favorite_actions'] )
 			$css[] = '#favorite-actions';
@@ -161,7 +173,7 @@ CSS;
 	 *
 	 * @return void (Text is echoed.)
 	 */
-	function add_admin_js() {
+	public static function add_admin_js() {
 		$options = $this->get_options();
 
 		$do_turbo = $this->is_option_valid( 'hide_turbo_link' );  // pre WP 3.0
@@ -213,7 +225,7 @@ JS;
 	 *
 	 * @return void (Text will be echoed.)
 	 */
-	function options_page_description() {
+	public static function options_page_description() {
 		$options = $this->get_options();
 		parent::options_page_description( __( 'Admin Trim Interface Settings', $this->textdomain ) );
 		echo '<p>' . __( 'Use the image at the bottom to correlate the settings below with the admin interface element they hide.', $this->textdomain ) . '</p>';
@@ -223,7 +235,7 @@ JS;
 	/**
 	 * Outputs the image that demonstrates the sections of the site that admin that correspond to the various settings.
 	 */
-	function show_legend_image() {
+	public static function show_legend_image() {
 		echo "<img src='" . plugins_url( basename( $_GET['page'], '.php' ) . '/screenshot-1.png' ) . "' alt='settings to admin mapping' style='position:absolute;left:450px;' />";
 	}
 } // end c2c_AdminTrimInterface
