@@ -4,8 +4,8 @@ Donate link: http://coffee2code.com/donate
 Tags: admin, interface, minimal, customize, coffee2code
 Requires at least: 2.8
 Tested up to: 3.1
-Stable tag: 2.0.2
-Version: 2.0.2
+Stable tag: 2.0.3
+Version: 2.0.3
 
 Customize the WordPress admin pages by selectively removing interface elements.
 
@@ -59,6 +59,9 @@ No. The settings for the plugin apply to all users within the admin pages and no
 
 == Changelog ==
 
+= 2.0.3 =
+* Fix bug related to declaring functions static
+
 = 2.0.2 =
 * Update plugin framework to version 021
 * Explicitly declare all class functions public static
@@ -109,6 +112,9 @@ No. The settings for the plugin apply to all users within the admin pages and no
 
 
 == Upgrade Notice ==
+
+= 2.0.3-=
+Recommended bugfix release: fixed bug introduced in previous release.
 
 = 2.0.2 =
 Minor release: updated underlying plugin framework; noted compatibility with WP 3.1+ and updated copyright date.
