@@ -1,163 +1,158 @@
-# Translation of the WordPress plugin Admin Trim Interface 2.0 by Scott Reilly.
-# Copyright (C) 2010 Scott Reilly
+# Copyright (C) 2011 Scott Reilly
 # This file is distributed under the same license as the Admin Trim Interface package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, 2010.
-#
-#, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: Admin Trim Interface 2.0\n"
+"Project-Id-Version: Admin Trim Interface 2.1\n"
 "Report-Msgid-Bugs-To: http://wordpress.org/tag/admin-trim-interface\n"
-"POT-Creation-Date: 2010-09-20 15:27-0400\n"
+"POT-Creation-Date: 2011-07-20 04:37:13+00:00\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
 "PO-Revision-Date: 2010-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
-"MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=utf-8\n"
-"Content-Transfer-Encoding: 8bit\n"
 
-#. #-#-#-#-#  admin-trim-interface.pot (Admin Trim Interface 2.0)  #-#-#-#-#
+#. #-#-#-#-#  admin-trim-interface.pot (Admin Trim Interface 2.1)  #-#-#-#-#
 #. Plugin Name of the plugin/theme
-#: admin-trim-interface.php:59 admin-trim-interface.php:60
+#: admin-trim-interface.php:100 admin-trim-interface.php:101
 msgid "Admin Trim Interface"
 msgstr ""
 
-#: admin-trim-interface.php:64
-msgid "1. Hide WordPress logo in header?"
+#: admin-trim-interface.php:105
+msgid "Hide WordPress logo in header?"
 msgstr ""
 
-#: admin-trim-interface.php:66
-msgid "2. Hide \"Visit site\" link?"
-msgstr ""
-
-#: admin-trim-interface.php:68
-msgid "2. Hide \"Search Engines Blocked\" link?"
-msgstr ""
-
-#: admin-trim-interface.php:70
-msgid "3. Hide favorite actions shortcuts?"
-msgstr ""
-
-#: admin-trim-interface.php:72
-msgid "4. Hide \"Howdy\"?"
-msgstr ""
-
-#: admin-trim-interface.php:74
-msgid "5. Hide username profile link?"
-msgstr ""
-
-#: admin-trim-interface.php:76
-msgid "5b. Hide \"Turbo\" link?"
-msgstr ""
-
-#: admin-trim-interface.php:78
-msgid "6. Hide Dashboard menu link?"
-msgstr ""
-
-#: admin-trim-interface.php:80
-msgid "7. Hide page heading icon?"
-msgstr ""
-
-#: admin-trim-interface.php:82
-msgid "8. Hide contextual \"Help\" link?"
-msgstr ""
-
-#: admin-trim-interface.php:84
-msgid "9. Hide footer links?"
-msgstr ""
-
-#: admin-trim-interface.php:86
-msgid "10. Hide WordPress version in footer?"
+#: admin-trim-interface.php:107
+msgid "Hide \"Visit site\" link?"
 msgstr ""
 
 #: admin-trim-interface.php:110
+msgid "Hide \"Search Engines Blocked\" link?"
+msgstr ""
+
+#: admin-trim-interface.php:112
+msgid "Hide favorite actions shortcuts?"
+msgstr ""
+
+#: admin-trim-interface.php:114
+msgid "Hide \"Howdy\"?"
+msgstr ""
+
+#: admin-trim-interface.php:116
+msgid "Hide username profile link?"
+msgstr ""
+
+#: admin-trim-interface.php:118
+msgid "Hide \"Turbo\" link?"
+msgstr ""
+
+#: admin-trim-interface.php:120
+msgid "Hide Dashboard menu link?"
+msgstr ""
+
+#: admin-trim-interface.php:122
+msgid "Hide page heading icon?"
+msgstr ""
+
+#: admin-trim-interface.php:124
+msgid "Hide contextual \"Help\" link?"
+msgstr ""
+
+#: admin-trim-interface.php:126
+msgid "Hide footer links?"
+msgstr ""
+
+#: admin-trim-interface.php:128
+msgid "Hide WordPress version in footer?"
+msgstr ""
+
+#: admin-trim-interface.php:222
 msgid ""
 "Unable to perform action: Your WordPress session has expired.  Please login "
 "and try again."
 msgstr ""
 
-#: admin-trim-interface.php:218
+#: admin-trim-interface.php:318
 msgid "Admin Trim Interface Settings"
 msgstr ""
 
-#: admin-trim-interface.php:219
+#: admin-trim-interface.php:319
 msgid ""
-"Use the image at the bottom to correlate the settings below with the admin "
+"Use the image at the right to correlate the settings below with the admin "
 "interface element they hide."
 msgstr ""
 
-#: admin-trim-interface.php:220
+#: admin-trim-interface.php:320
 msgid ""
 "Note: These settings are global and will affect all users who are able to "
 "visit the admin pages."
 msgstr ""
 
-#: c2c-plugin.php:59
-#, php-format
+#: admin-trim-interface.php:332
+msgid "Click to view full size."
+msgstr ""
+
+#: c2c-plugin.php:64
 msgid "Invalid file specified for C2C_Plugin: %s"
 msgstr ""
 
-#: c2c-plugin.php:232
+#: c2c-plugin.php:286
 msgid "Settings reset."
 msgstr ""
 
-#: c2c-plugin.php:243 c2c-plugin.php:251
-#, php-format
+#: c2c-plugin.php:297 c2c-plugin.php:305
 msgid "A value is required for: \"%s\""
 msgstr ""
 
-#: c2c-plugin.php:260
-#, php-format
+#: c2c-plugin.php:314
 msgid "Expected integer value for: %s"
 msgstr ""
 
-#: c2c-plugin.php:370
-#, php-format
+#: c2c-plugin.php:426
 msgid "More information about %1$s %2$s"
 msgstr ""
 
-#: c2c-plugin.php:371
+#: c2c-plugin.php:427
 msgid "Click for more help on this plugin"
 msgstr ""
 
-#: c2c-plugin.php:372
+#: c2c-plugin.php:428
 msgid " (especially check out the \"Other Notes\" tab, if present)"
 msgstr ""
 
-#: c2c-plugin.php:463
+#: c2c-plugin.php:519
 msgid "Settings"
 msgstr ""
 
-#: c2c-plugin.php:674
+#: c2c-plugin.php:753
 msgid "See the \"Help\" link to the top-right of the page for more help."
 msgstr ""
 
-#: c2c-plugin.php:692
+#: c2c-plugin.php:774
 msgid "A plugin by coffee2code"
 msgstr ""
 
-#: c2c-plugin.php:703
+#: c2c-plugin.php:785
 msgid "Save Changes"
 msgstr ""
 
-#: c2c-plugin.php:704
+#: c2c-plugin.php:786
 msgid "Reset Settings"
 msgstr ""
 
-#: c2c-plugin.php:710
+#: c2c-plugin.php:792
 msgid "Scott Reilly, aka coffee2code"
 msgstr ""
 
-#: c2c-plugin.php:711
-#, php-format
+#: c2c-plugin.php:793
 msgid "This plugin brought to you by %s."
 msgstr ""
 
-#: c2c-plugin.php:712
+#: c2c-plugin.php:794
 msgid "Please consider a donation"
 msgstr ""
 
-#: c2c-plugin.php:713
+#: c2c-plugin.php:795
 msgid "Did you find this plugin useful?"
 msgstr ""
 

@@ -2,7 +2,7 @@
 Contributors: coffee2code
 Donate link: http://coffee2code.com/donate
 Tags: admin, interface, minimal, customize, coffee2code
-Requires at least: 2.8
+Requires at least: 3.0
 Tested up to: 3.1
 Stable tag: 2.0.3
 Version: 2.0.3
@@ -17,12 +17,10 @@ This plugin uses a combination of CSS (when possible) and Javascript to removed 
 Each admin interface element is individually selected for removal.  The elements that can be removed are:
 
 * The header WordPress logo
-* The "Visit site" link
-* The "Search Engines Blocked" link
-* The favorites shortcut dropdown
+* The "Search Engines Blocked" link (only found in WP 3.0+ and 3.1+)
+* The favorites shortcut dropdown (only found in WP 3.0+ and 3.1+)
 * The "Howdy," greeting before your username
 * Your username link to your profile
-* The "Turbo" link
 * The Dashboard link
 * The page header icon
 * The contextual "Help" link
@@ -49,15 +47,41 @@ Links: [Plugin Homepage]:(http://coffee2code.com/wp-plugins/admin-trim-interface
 
 No. The settings for the plugin apply to all users within the admin pages and not to each user individually.
 
+= Why is the admin dashboard still accessible? =
+
+This plugin does not prevent access to the admin dashboard; it merely provides the ability to hide the admin sidebar menu button that leads to the admin dashboard.
+
 
 == Screenshots ==
 
-1. A image indicating the different elements of the admin interface that can be selectively disabled by the plugin.
-2. A screenshot of the plugin's admin settings page.
-3. A screenshot of a fully trimmed admin interface.
+1. A image indicating the different elements of the admin interface that can be selectively disabled by the plugin (WP 3.2+).
+2. A image indicating the different elements of the admin interface that can be selectively disabled by the plugin (WP 3.0+, 3.1+).
+3. A screenshot of the plugin's admin settings page.
+4. A screenshot of a fully trimmed admin interface.
 
 
 == Changelog ==
+
+= 2.1 =
+* Dynamically number options rather than hardcoding numbers into label
+* Change to hide "Howdy" via gettext() translation string modification rather than CSS
+* Change method and improve thoroughness of disabling dashboard menu link
+* Use filters to disable footer links and WP version
+* Show different legend image on settings page depending on what version of WP is in use
+* Fix to properly register activation and uninstall hooks
+* Update plugin framework to 024
+* Save a static version of itself in class variable $instance
+* Deprecate use of global variable $c2c_admin_trim_interface to store instance
+* Add __construct(), activation(), admin_init(), hide_dashboard(), admin_user_info_links()
+* Note compatibility through WP 3.2+
+* Drop support for versions of WP older than 3.0
+* Update all screenshots
+* Display reduced size legend image, make it clickable to view full-size, and add text saying as much
+* Explicitly declare functions public
+* Regenerate .pot
+* Minor code formatting changes (spacing)
+* Update copyright date (2011)
+* Add plugin homepage and author links in description in readme.txt
 
 = 2.0.3 =
 * Fix bug related to declaring functions static
@@ -112,6 +136,9 @@ No. The settings for the plugin apply to all users within the admin pages and no
 
 
 == Upgrade Notice ==
+
+= 2.1 =
+Recommended update. Update trim capabilities to be WP 3.2 compatible; improved interface trimming techniques; dropped support for versions of WP older than 3.0; updated plugin framework; and more.
 
 = 2.0.3-=
 Recommended bugfix release: fixed bug introduced in previous release.

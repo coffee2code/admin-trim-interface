@@ -2,12 +2,12 @@
 /**
  * @package C2C_Plugins
  * @author Scott Reilly
- * @version 021
+ * @version 024
  */
 /*
 Basis for other plugins
 
-Compatible with WordPress 2.8+, 2.9+, 3.0+, 3.1+.
+Compatible with WordPress 3.0+, 3.1+, 3.2+.
 
 =>> Read the accompanying readme.txt file for more information.  Also, visit the plugin's homepage
 =>> for more information and the latest updates
@@ -32,15 +32,32 @@ LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRA
 IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
-if ( !class_exists( 'C2C_Plugin_021' ) ) :
+if ( !class_exists( 'C2C_Plugin_024' ) ) :
 
-abstract class C2C_Plugin_021 {
+abstract class C2C_Plugin_024 {
 	protected $plugin_css_version = '007';
-	protected $options = array();
-	protected $option_names = array();
-	protected $required_config = array( 'menu_name', 'name' );
-	protected $saved_settings = false;
+	protected $options            = array();
+	protected $option_names       = array();
+	protected $required_config    = array( 'menu_name', 'name' );
+	protected $config_attributes  = array(
+		'allow_html'       => false,
+		'class'            => array(),
+		'datatype'         => '',
+		'default'          => '',
+		'help'             => '',
+		'input'            => '',
+		'input_attributes' => '',
+		'label'            => '',
+		'no_wrap'          => false,
+		'numbered'         => false,
+		'options'          => '',
+		'output'           => '', // likely deprecated
+		'required'         => false
+	);
+	protected $saved_settings     = false;
 	protected $saved_settings_msg = '';
+
+	private   $setting_index      = 0;
 
 	/**
 	 * Handles installation tasks, such as ensuring plugin options are instantiated and saved to options table.
@@ -52,7 +69,7 @@ abstract class C2C_Plugin_021 {
 	 * @param array $plugin_options (optional) Array specifying further customization of plugin configuration.
 	 * @return void
 	 */
-	public function C2C_Plugin_021( $version, $id_base, $author_prefix, $file, $plugin_options = array() ) {
+	public function C2C_Plugin_024( $version, $id_base, $author_prefix, $file, $plugin_options = array() ) {
 		global $pagenow;
 		$id_base = sanitize_title( $id_base );
 		if ( !file_exists( $file ) )
@@ -89,15 +106,15 @@ abstract class C2C_Plugin_021 {
 		$this->u_id_base			= $u_id_base; // Underscored version of id_base
 		$this->version				= $version;
 
-		add_action( 'init', array( &$this, 'init' ) );
+		add_action( 'init',				array( &$this, 'init' ) );
 		$plugin_file = implode( '/', array_slice( explode( '/', $this->plugin_basename ), -2 ) );
-		add_action( 'activate_' . $plugin_file, array( &$this, 'install' ) );
-		add_action( 'deactivate_' . $plugin_file, array( &$this, 'deactivate' ) );
+		add_action( 'activate_' . $plugin_file,		array( &$this, 'install' ) );
+		add_action( 'deactivate_' . $plugin_file,	array( &$this, 'deactivate' ) );
 
-		add_action( 'admin_init', array( &$this, 'init_options' ) );
+		add_action( 'admin_init',					array( &$this, 'init_options' ) );
 
 		if ( basename( $pagenow, '.php' ) == $this->settings_page )
-			add_action( 'admin_head', array( &$this, 'add_c2c_admin_css' ) );
+			add_action( 'admin_head', 				array( &$this, 'add_c2c_admin_css' ) );
 	}
 
 	/**
@@ -155,13 +172,17 @@ abstract class C2C_Plugin_021 {
 	 * Calls handle_plugin_update() if an upgrade was detected. Override that
 	 * to do whatever needs done to bring older settings, etc up-to-date.
 	 *
+	 * @since 021
 	 */
 	function check_if_plugin_was_upgraded() {
 		$_version = isset( $this->options['_version'] ) ? $this->options['_version'] : '0.0';
 		if ( $_version != $this->version ) {
+			// Save the original options into another option in case something goes wrong.
+			// TODO: Currently just saves one version back... should it save more?
+			update_option( 'bkup_' . $this->admin_options_name, $this->options );
+
 			$this->options['_version'] = $this->version;
 			$options = $this->handle_plugin_upgrade( $_version, $this->options );
-			// The following 2 lines should also end an overridden version
 			update_option( $this->admin_options_name, $options );
 			$this->options = $options;
 		}
@@ -177,6 +198,7 @@ abstract class C2C_Plugin_021 {
 	 * plugin's current version.  At the very least the settings will get
 	 * re-saved so that the new current version can be recorded.
 	 *
+	 * @since 021
 	 * @param string $old_version The version number of the old version of
 	 *        the plugin. '0.0' indicates no version previously stored
 	 * @param array $options Array of all plugin options
@@ -250,7 +272,10 @@ abstract class C2C_Plugin_021 {
 	 * @return string The label for the option
 	 */
 	public function get_option_label( $opt ) {
-		return isset( $this->config[$opt]['label'] ) ? $this->config[$opt]['label'] : '';
+		$label = isset( $this->config[$opt]['label'] ) ? $this->config[$opt]['label'] : '';
+		if ( $this->config[$opt]['numbered'] === true )
+			$label = ++$this->setting_index . ". $label";
+		return $label;
 	}
 
 	/**
@@ -306,13 +331,15 @@ abstract class C2C_Plugin_021 {
 							case 'array':
 								if ( empty( $val ) )
 									$val = array();
+								elseif ( is_array( $val ) )
+									$val = array_map( 'trim', $val );
 								elseif ( $input == 'text' )
 									$val = explode( ',', str_replace( array( ', ', ' ', ',' ), ',', $val ) );
 								else
 									$val = array_map( 'trim', explode( "\n", trim( $val ) ) );
 								break;
 							case 'hash':
-								if ( !empty( $val ) && $input != 'select' ) {
+								if ( !empty( $val ) && $input != 'select' && !is_array( $val ) ) {
 									$new_values = array();
 									foreach ( explode( "\n", $val ) AS $line ) {
 										list( $shortcut, $text ) = array_map( 'trim', explode( "=>", $line, 2 ) );
@@ -359,12 +386,10 @@ abstract class C2C_Plugin_021 {
 		else {
 			// Initialize any option attributes that weren't specified by the plugin
 			foreach ( $this->get_option_names( true ) as $opt ) {
-				foreach ( array( 'datatype', 'default', 'help', 'input', 'input_attributes', 'label', 'no_wrap', 'options', 'output', 'required' ) as $attrib ) {
+				foreach ( $this->config_attributes as $attrib => $default) {
 					if ( !isset( $this->config[$opt][$attrib] ) )
-						$this->config[$opt][$attrib] = '';
+						$this->config[$opt][$attrib] = $default;
 				}
-				$this->config[$opt]['allow_html'] = false;
-				$this->config[$opt]['class'] = array();
 			}
 		}
 	}
@@ -753,7 +778,7 @@ CSS;
 		if ( $this->saved_settings )
 			echo "<div id='message' class='updated fade'><p><strong>" . $this->saved_settings_msg . '</strong></p></div>';
 
-		$logo = plugins_url( basename( $_GET['page'], '.php' ) . '/c2c_minilogo.png' );
+		$logo = plugins_url( 'c2c_minilogo.png', $this->plugin_file );
 
 		echo "<div class='wrap'>\n";
 		echo "<div class='icon32' style='width:44px;'><img src='$logo' alt='" . esc_attr__( 'A plugin by coffee2code', $this->textdomain ) . "' /><br /></div>\n";
