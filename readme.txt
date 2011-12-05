@@ -3,9 +3,9 @@ Contributors: coffee2code
 Donate link: http://coffee2code.com/donate
 Tags: admin, interface, minimal, customize, coffee2code
 Requires at least: 3.0
-Tested up to: 3.1
-Stable tag: 2.0.3
-Version: 2.0.3
+Tested up to: 3.2.1
+Stable tag: 2.1
+Version: 2.1
 
 Customize the WordPress admin pages by selectively removing interface elements.
 
@@ -31,7 +31,7 @@ Each admin interface element is individually selected for removal.  The elements
 
 Note: These settings are global and will affect all users who are able to visit the admin pages.
 
-Links: [Plugin Homepage]:(http://coffee2code.com/wp-plugins/admin-trim-interface/) | [Author Homepage]:(http://coffee2code.com)
+Links: [Plugin Homepage](http://coffee2code.com/wp-plugins/admin-trim-interface/) | [Author Homepage](http://coffee2code.com)
 
 
 == Installation ==
