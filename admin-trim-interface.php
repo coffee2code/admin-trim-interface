@@ -2,30 +2,31 @@
 /**
  * @package Admin_Trim_Interface
  * @author Scott Reilly
- * @version 2.1
+ * @version 2.2
  */
 /*
 Plugin Name: Admin Trim Interface
-Version: 2.1
+Version: 2.2
 Plugin URI: http://coffee2code.com/wp-plugins/admin-trim-interface/
 Author: Scott Reilly
 Author URI: http://coffee2code.com
 Text Domain: admin-trim-interface
+Domain Path: /lang/
 Description: Customize the WordPress admin pages by selectively removing interface elements.
 
-Compatible with WordPress 3.0+, 3.1+, 3.2+.
+Compatible with WordPress 3.1+, 3.2+, 3.3+.
 
 =>> Read the accompanying readme.txt file for instructions and documentation.
 =>> Also, visit the plugin's homepage for additional information and updates.
 =>> Or visit: http://wordpress.org/extend/plugins/admin-trim-interface/
 
 TODO:
-	* Remove pre-WP3.0 specific code (to include Hide visit sitelink and hide turbo options)
+	* Remove pre-WP3.1 specific code (to include Hide visit sitelink and hide turbo options)
 
 */
 
 /*
-Copyright (c) 2009-2011 by Scott Reilly (aka coffee2code)
+Copyright (c) 2009-2012 by Scott Reilly (aka coffee2code)
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation
 files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy,
@@ -44,7 +45,7 @@ if ( is_admin() && ! class_exists( 'c2c_AdminTrimInterface' ) ) :
 
 require_once( 'c2c-plugin.php' );
 
-class c2c_AdminTrimInterface extends C2C_Plugin_024 {
+class c2c_AdminTrimInterface extends C2C_Plugin_031 {
 
 	public static $instance;
 
@@ -60,7 +61,7 @@ class c2c_AdminTrimInterface extends C2C_Plugin_024 {
 		if ( ! is_null( self::$instance ) )
 			return;
 
-		$this->C2C_Plugin_024( '2.1', 'admin-trim-interface', 'c2c', __FILE__, array( 'settings_page' => 'themes' ) );
+		parent::__construct( '2.2', 'admin-trim-interface', 'c2c', __FILE__, array( 'settings_page' => 'themes' ) );
 		register_activation_hook( __FILE__, array( __CLASS__, 'activation' ) );
 		self::$instance = $this;
 	}
@@ -112,6 +113,8 @@ class c2c_AdminTrimInterface extends C2C_Plugin_024 {
 					'label' => __( 'Hide "Howdy"?', $this->textdomain ) ),
 			'hide_username' => array( 'input' => 'checkbox', 'default' => false, 'numbered' => true,
 					'label' => __( 'Hide username profile link?', $this->textdomain ) ),
+			'hide_avatar' => array( 'input' => 'checkbox', 'default' => false, 'wpgte' => '3.2.99', 'numbered' => true,
+					'label' => __( 'Hide user avatar?', $this->textdomain ) ),
 			'hide_turbo_link' => array( 'input' => 'checkbox', 'default' => false, 'wplt' => '3.0', 'numbered' => true,
 					'label' => __( 'Hide "Turbo" link?', $this->textdomain ) ),
 			'hide_dashboard' => array( 'input' => 'checkbox', 'default' => false, 'numbered' => true,
@@ -138,8 +141,15 @@ class c2c_AdminTrimInterface extends C2C_Plugin_024 {
 		add_action( '_admin_menu',                             array( &$this, 'hide_dashboard' ) );
 		add_action( 'admin_init',                              array( &$this, 'admin_init' ) );
 		add_action( 'admin_head',                              array( &$this, 'add_admin_css' ) );
+		add_filter( 'contextual_help',                         array( &$this, 'clear_contextual_help' ), 1000 );
 		add_action( 'admin_print_footer_scripts',              array( &$this, 'add_admin_js' ) );
-		add_filter( 'admin_user_info_links',                   array( &$this, 'admin_user_info_links' ) );
+		global $wp_version;
+		if ( version_compare( $wp_version, '3.2.99', '>' ) ) {
+			add_filter( 'admin_bar_menu',                      array( &$this, 'admin_bar_menu' ) );
+			add_action( 'admin_head',                          array( &$this, 'hide_help_tabs' ) );
+		} else {
+			add_filter( 'admin_user_info_links',               array( &$this, 'admin_user_info_links' ) ); // pre-WP3.3
+		}
 		add_filter( 'explain_nonce_'.$this->nonce_field,       array( &$this, 'explain_nonce' ) );
 		add_action( $this->get_hook( 'before_settings_form' ), array( &$this, 'show_legend_image' ) );
 	}
@@ -155,12 +165,15 @@ class c2c_AdminTrimInterface extends C2C_Plugin_024 {
 			add_filter( 'admin_footer_text', '__return_false' );
 		if ( $options['hide_footer_version'] )
 			remove_filter( 'update_footer', 'core_update_footer' );
-		if ( $options['hide_howdy'] )
+
+		// pre-WP3.3
+		global $wp_version;
+		if ( version_compare( $wp_version, '3.3', '<' ) && $options['hide_howdy'] )
 			add_filter( 'gettext', array( &$this, 'remove_howdy' ), 10, 3 );
 	}
 
 	/**
-	 * Removes "Howdy, "
+	 * Removes "Howdy, " (pre-WP3.3)
 	 *
 	 * @since 2.1
 	 *
@@ -169,10 +182,38 @@ class c2c_AdminTrimInterface extends C2C_Plugin_024 {
 	 * @param $domain string The language domain
 	 * @return string The translated string
 	 */
-	function remove_howdy( $translation, $text, $domain ) {
+	public function remove_howdy( $translation, $text, $domain ) {
 		if ( $text == 'Howdy, %1$s' )
 			return '%1$s';
 		return $translation;
+	}
+
+	/**
+	 * Hides help tabs
+	 *
+	 * @since 2.2
+	 */
+	public function hide_help_tabs() {
+		$options = $this->get_options();
+		if ( $options['hide_help'] ) {
+			$screen = get_current_screen();
+			$screen->remove_help_tabs();
+		}
+	}
+
+	/**
+	 * Clears old-style contextual help defined via filter.
+	 *
+	 * @since 2.2
+	 *
+	 * @param string $text The contextual help text
+	 * @return string Empty string if help tab is being hidden
+	 */
+	public function clear_contextual_help( $text ) {
+		$options = $this->get_options();
+		if ( $options['hide_help'] )
+			$text = '';
+		return $text;
 	}
 
 	/**
@@ -180,7 +221,7 @@ class c2c_AdminTrimInterface extends C2C_Plugin_024 {
 	 *
 	 * @since 2.1
 	 */
-	function hide_dashboard() {
+	public function hide_dashboard() {
 		global $menu, $submenu;
 		$options = $this->get_options();
 		if ( $options['hide_dashboard'] ) {
@@ -196,7 +237,7 @@ class c2c_AdminTrimInterface extends C2C_Plugin_024 {
 	}
 
 	/**
-	 * Remove links top right of admin header
+	 * Remove links top right of admin header (pre-WP3.3)
 	 *
 	 * @since 2.1
 	 *
@@ -208,6 +249,59 @@ class c2c_AdminTrimInterface extends C2C_Plugin_024 {
 		if ( $options['hide_username'] && $options['hide_howdy'] )
 			unset( $links[5] );
 		return $links;
+	}
+
+	/**
+	 * Modify admin bar according to settings.
+	 *
+	 * Much of the node building is based on wp_admin_bar_my_account_item()
+	 *
+	 * @since 2.2
+	 *
+	 * @param obj $wp_admin_bar The admin bar
+	 */
+	public function admin_bar_menu( $wp_admin_bar ) {
+		$options      = $this->get_options();
+
+		// Possible hide the WP logo
+		if ( $options['hide_wp_logo'] )
+			$wp_admin_bar->remove_node( 'wp-logo' );
+
+		// Now determine if the user node needs removal/paring
+
+		$user_id      = get_current_user_id();
+
+		if ( ! $user_id )
+			return;
+
+		$current_user = wp_get_current_user();
+		$profile_url  = get_edit_profile_url( $user_id );
+
+		// If any element in the my-account admin bar node is being hidden,
+		// remove the whole thing and rebuild it
+		if ( $options['hide_username'] || $options['hide_howdy'] || $options['hide_avatar'] )
+			$wp_admin_bar->remove_node( 'my-account' );
+
+		if ( $options['hide_username'] && $options['hide_howdy'] && $options['hide_avatar'] )
+			return;
+
+		$avatar = $options['hide_avatar'] ? '' : get_avatar( $user_id, 16 );
+		if ( $options['hide_howdy'] )
+			$howdy = $options['hide_username'] ? '' : $current_user->display_name;
+		else
+			$howdy = $options['hide_username'] ? __( 'Howdy' ) : sprintf( __( 'Howdy, %1$s' ), $current_user->display_name );
+		$class  = empty( $avatar ) ? '' : 'with-avatar';
+
+		$wp_admin_bar->add_menu( array(
+			'id'        => 'my-account',
+			'parent'    => 'top-secondary',
+			'title'     => $howdy . $avatar,
+			'href'      => $profile_url,
+			'meta'      => array(
+				'class'     => $class,
+				'title'     => __('My Account'),
+				),
+		) );
 	}
 
 	/**
@@ -230,29 +324,37 @@ class c2c_AdminTrimInterface extends C2C_Plugin_024 {
 
 		$css = array();
 
-		if ( $options['hide_wp_logo'] )
+		if ( $options['hide_wp_logo'] ) // pre-WP3.3
 			$css[] = '#header-logo';
 		if ( $this->is_option_valid( 'hide_visit_site_link' ) && $options['hide_visit_site_link'] )
 			$css[] = '#wphead h1 a span, #wphead #site-visit-button'; // In WP2.8+ this just needs to be: #wphead #site-visit-button
 		if ( $this->is_option_valid( 'hide_search_engines_blocked' ) && $options['hide_search_engines_blocked'] )
 			$css[] = '#privacy-on-link'; // For WP3.0+ the site link was replaced by the search enginges blocked link
-		if ( $options['hide_favorite_actions'] )
+		if ( $this->is_option_valid( 'hide_favorite_actions' ) &&  $options['hide_favorite_actions'] )
 			$css[] = '#favorite-actions';
-		if ( $options['hide_help'] )
-			$css[] = '#contextual-help-link-wrap'; // This is just for < WP2.8, since 2.8 modifies this via JS
+		if ( $options['hide_help'] ) // pre-WP2.8 (< WP3.3 does it via JS)
+			$css[] = '#contextual-help-link-wrap';
 		if ( $options['hide_page_heading_icon'] )
 			$css[] = '#icon-index, .icon32';
-		if ( $options['hide_username'] )
+		if ( $options['hide_username'] ) // pre-WP3.3
 			$css[] = '#user_info p > a[href=\'profile.php\']';
 
-		// Hack
-		$extra_css = '#wphead #site-title { display:inline; }';
+		global $wp_version;
+		if ( version_compare( $wp_version, '3.2.99', '>' ) )
+			$extra_css = ".c2c-ati-image { position:absolute;left:300px;top:170px; }\n";
+		else // pre-WP3.3
+			$extra_css = ".c2c-ati-image { position:absolute;left:350px;top:240px; }\n";
 
-		if ( ! empty( $css ) ) {
+		// Hack
+		$extra_css .= '#wphead #site-title { display:inline; }';
+
+		if ( ! empty( $css ) || ! empty( $extra_css ) ) {
 			$css = implode( ', ', $css );
+			if ( ! empty( $css ) )
+				$css = "$css { display:none; }\n";
 			echo <<<CSS
 		<style type="text/css">
-		{$css} { display:none; }
+		{$css}
 		{$extra_css}
 		</style>
 
@@ -268,7 +370,7 @@ CSS;
 	public function add_admin_js() {
 		$options = $this->get_options();
 
-		$do_turbo = $this->is_option_valid( 'hide_turbo_link' );  // pre WP 3.0
+		$do_turbo = $this->is_option_valid( 'hide_turbo_link' );  // pre-WP3.0
 
 		$js = array();
 
@@ -278,17 +380,17 @@ CSS;
 		if ( $do_turbo && $options['hide_turbo_link'] )
 			$js[] = "\$('.turbo-nag').remove();";
 
-		if ( $options['hide_help'] )
+		if ( $options['hide_help'] ) // pre-WP3.3
 			$js[] = "\$('#contextual-help-link-wrap').remove();";
 
-		if ( $do_turbo && $options['hide_howdy'] && $options['hide_username'] )
+		if ( $do_turbo && $options['hide_howdy'] && $options['hide_username'] ) // pre-WP3.3
 			$js[] = "\$('.turbo-nag').html(\$('.turbo-nag a'))";
 
-		if ( $do_turbo ) { // Pre WP 3.0
+		if ( $do_turbo ) { // pre-WP3.0
 			if ( ( !$options['hide_username'] && ( $options['hide_turbo_link'] && $options['hide_howdy'] ) ) ||
 				 ( $options['hide_howdy'] && ( !$options['hide_turbo_link'] || !$options['hide_username'] ) ) )
 				$js[] = "\$('#user_info p a:last').before(' | ');";
-		} else {
+		} else { // pre-WP3.3
 			if ( !$options['hide_username'] && $options['hide_howdy'] )
 				$js[] = "\$('#user_info p a:last').before(' | ');";
 		}
@@ -323,18 +425,20 @@ JS;
 	 */
 	public function show_legend_image() {
 		global $wp_version;
-		$image = version_compare( $wp_version, '3.2' ) < 0 ? 'screenshot-2.png' : 'screenshot-1.png';
+		if ( version_compare( $wp_version, '3.2.99', '>' ) )
+			$image = 'screenshot-1.png';
+		else // pre-WP3.3
+			$image = version_compare( $wp_version, '3.2' ) < 0 ? 'screenshot-3.png' : 'screenshot-2.png';
 		$link = plugins_url( basename( $_GET['page'], '.php' ) . '/' . $image );
-		echo "<a href='$link' title='settings to admin interface mapping; click to view full size' style='position:absolute;left:450px;'>";
-		echo "<img src='$link' width='450' alt='settings to admin interface mapping' />";
+		echo "<a href='$link' title='settings to admin interface mapping; click to view full size' class='c2c-ati-image'>";
+		echo "<img src='$link' width='425' alt='settings to admin interface mapping' />";
 		echo '<br /><center><em>' . __( 'Click to view full size.', $this->textdomain ) . '</em></center></a>';
 	}
 } // end c2c_AdminTrimInterface
 
 
-// NOTICE: The 'c2c_admin_trim_interface' global is deprecated and will be removed in the plugin's version 2.2.
-// Instead, use: c2c_AdminTrimInterface::$instance
-$GLOBALS['c2c_admin_trim_interface'] = new c2c_AdminTrimInterface();
+// To access the object instance, use: c2c_AdminTrimInterface::$instance
+new c2c_AdminTrimInterface();
 
 endif; // end if !class_exists()
 

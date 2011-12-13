@@ -2,12 +2,12 @@
 /**
  * @package C2C_Plugins
  * @author Scott Reilly
- * @version 024
+ * @version 031
  */
 /*
 Basis for other plugins
 
-Compatible with WordPress 3.0+, 3.1+, 3.2+.
+Compatible with WordPress 3.1+, 3.2+, 3.3+.
 
 =>> Read the accompanying readme.txt file for more information.  Also, visit the plugin's homepage
 =>> for more information and the latest updates
@@ -32,11 +32,12 @@ LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRA
 IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
-if ( !class_exists( 'C2C_Plugin_024' ) ) :
+if ( ! class_exists( 'C2C_Plugin_031' ) ) :
 
-abstract class C2C_Plugin_024 {
-	protected $plugin_css_version = '007';
+abstract class C2C_Plugin_031 {
+	protected $plugin_css_version = '008';
 	protected $options            = array();
+	protected $options_from_db    = '';
 	protected $option_names       = array();
 	protected $required_config    = array( 'menu_name', 'name' );
 	protected $config_attributes  = array(
@@ -69,52 +70,61 @@ abstract class C2C_Plugin_024 {
 	 * @param array $plugin_options (optional) Array specifying further customization of plugin configuration.
 	 * @return void
 	 */
-	public function C2C_Plugin_024( $version, $id_base, $author_prefix, $file, $plugin_options = array() ) {
-		global $pagenow;
+	public function __construct( $version, $id_base, $author_prefix, $file, $plugin_options = array() ) {
 		$id_base = sanitize_title( $id_base );
-		if ( !file_exists( $file ) )
+		if ( ! file_exists( $file ) )
 			die( sprintf( __( 'Invalid file specified for C2C_Plugin: %s', $this->textdomain ), $file ) );
 
 		$u_id_base = str_replace( '-', '_', $id_base );
 		$author_prefix .= '_';
 		$defaults = array(
-			'admin_options_name'	=> $author_prefix . $u_id_base,	// The setting under which all plugin settings are stored under (as array)
-			'config'				=> array(),						// Default configuration
-			'disable_contextual_help' => false,						// Prevent overriding of the contextual help?
-			'disable_update_check'	=> false,						// Prevent WP from checking for updates to this plugin?
-			'hook_prefix'			=> $u_id_base . '_',			// Prefix for all hooks
-			'form_name'				=> $u_id_base,					// Name for the <form>
-			'menu_name'				=> '',							// Specify this via plugin
-			'name'					=> '',							// Full, localized version of the plugin name
-			'nonce_field'			=> 'update-' . $u_id_base,		// Nonce field value
-			'settings_page'			=> 'options-general',			// The type of the settings page.
-			'show_admin'			=> true,						// Should admin be shown? Only applies if admin is enabled
-			'textdomain'			=> $id_base,					// Textdomain for localization
-			'textdomain_subdir'		=> 'lang'						// Subdirectory, relative to plugin's root, to hold localization files
+			'admin_options_name'    => $author_prefix . $u_id_base, // The setting under which all plugin settings are stored under (as array)
+			'config'                => array(),                     // Default configuration
+			'disable_contextual_help' => false,                     // Prevent overriding of the contextual help?
+			'disable_update_check'  => false,                       // Prevent WP from checking for updates to this plugin?
+			'hook_prefix'           => $u_id_base . '_',            // Prefix for all hooks
+			'form_name'             => $u_id_base,                  // Name for the <form>
+			'menu_name'             => '',                          // Specify this via plugin
+			'name'                  => '',                          // Full, localized version of the plugin name
+			'nonce_field'           => 'update-' . $u_id_base,      // Nonce field value
+			'settings_page'         => 'options-general',           // The type of the settings page.
+			'show_admin'            => true,                        // Should admin be shown? Only applies if admin is enabled
+			'textdomain'            => $id_base,                    // Textdomain for localization
+			'textdomain_subdir'     => 'lang'                       // Subdirectory, relative to plugin's root, to hold localization files
 		);
 		$settings = wp_parse_args( $plugin_options, $defaults );
 
 		foreach ( array_keys( $defaults ) as $key )
 			$this->$key = $settings[$key];
 
-		$this->author_prefix		= $author_prefix;
-		$this->id_base				= $id_base;
-		$this->options_page			= ''; // This will be set when the options is created
-		$this->plugin_basename		= plugin_basename( $file );
-		$this->plugin_file			= $file;
-		$this->plugin_path			= plugins_url( '', $file );
-		$this->u_id_base			= $u_id_base; // Underscored version of id_base
-		$this->version				= $version;
+		$this->author_prefix        = $author_prefix;
+		$this->id_base              = $id_base;
+		$this->options_page         = ''; // This will be set when the options is created
+		$this->plugin_basename      = plugin_basename( $file );
+		$this->plugin_file          = $file;
+		$this->plugin_path          = plugins_url( '', $file );
+		$this->u_id_base            = $u_id_base; // Underscored version of id_base
+		$this->version              = $version;
 
-		add_action( 'init',				array( &$this, 'init' ) );
 		$plugin_file = implode( '/', array_slice( explode( '/', $this->plugin_basename ), -2 ) );
-		add_action( 'activate_' . $plugin_file,		array( &$this, 'install' ) );
-		add_action( 'deactivate_' . $plugin_file,	array( &$this, 'deactivate' ) );
 
-		add_action( 'admin_init',					array( &$this, 'init_options' ) );
+		add_action( 'init',                         array( &$this, 'init' ) );
+		add_action( 'activate_' . $plugin_file,     array( &$this, 'install' ) );
+		add_action( 'deactivate_' . $plugin_file,   array( &$this, 'deactivate' ) );
+		if ( $this->is_plugin_admin_page() || $this->is_submitting_form() ) {
+			add_action( 'admin_init', array( &$this, 'init_options' ) );
+			if ( ! $this->is_submitting_form() )
+				add_action( 'admin_head', array( &$this, 'add_c2c_admin_css' ) );
+		}
+	}
 
-		if ( basename( $pagenow, '.php' ) == $this->settings_page )
-			add_action( 'admin_head', 				array( &$this, 'add_c2c_admin_css' ) );
+	/**
+	 * Returns the plugin's version.
+	 *
+	 * @since 031
+	 */
+	public function version() {
+		return $this->version;
 	}
 
 	/**
@@ -145,19 +155,22 @@ abstract class C2C_Plugin_024 {
 	 */
 	public function init() {
 		global $c2c_plugin_max_css_version;
-		if ( !isset( $c2c_plugin_max_css_version ) || ( $c2c_plugin_max_css_version < $this->plugin_css_version ) )
+
+		if ( ! isset( $c2c_plugin_max_css_version ) || ( $c2c_plugin_max_css_version < $this->plugin_css_version ) )
 			$c2c_plugin_max_css_version = $this->plugin_css_version;
 		$this->load_textdomain();
 		$this->load_config();
 		$this->verify_config();
 
+		add_filter( 'plugin_row_meta', array( &$this, 'donate_link' ), 10, 2);
+
 		if ( $this->disable_update_check )
 			add_filter( 'http_request_args', array( &$this, 'disable_update_check' ), 5, 2 );
 
-		if ( $this->show_admin && $this->settings_page && !empty( $this->config ) && current_user_can( 'manage_options' ) ) {
+		if ( $this->show_admin && $this->settings_page && ! empty( $this->config ) && current_user_can( 'manage_options' ) ) {
 			add_action( 'admin_menu', array( &$this, 'admin_menu' ) );
-			if ( !$this->disable_contextual_help ) {
-				add_action( 'contextual_help', array( &$this, 'contextual_help' ), 10, 3 );
+			if ( ! $this->disable_contextual_help ) {
+				add_filter( 'contextual_help', array( &$this, 'contextual_help' ), 10, 3 );
 				if ( $this->is_plugin_admin_page() )
 					add_thickbox();
 			}
@@ -175,7 +188,12 @@ abstract class C2C_Plugin_024 {
 	 * @since 021
 	 */
 	function check_if_plugin_was_upgraded() {
+		// If there was no previous install of this plugin, then don't need to do anything here
+		if ( empty( $this->options_from_db ) )
+			return;
+
 		$_version = isset( $this->options['_version'] ) ? $this->options['_version'] : '0.0';
+
 		if ( $_version != $this->version ) {
 			// Save the original options into another option in case something goes wrong.
 			// TODO: Currently just saves one version back... should it save more?
@@ -240,7 +258,7 @@ abstract class C2C_Plugin_024 {
 	 */
 	public function init_options() {
 		register_setting( $this->admin_options_name, $this->admin_options_name, array( &$this, 'sanitize_inputs' ) );
-		add_settings_section( 'default', '', array( &$this, 'draw_default_section' ), $this->plugin_file );
+		add_settings_section( 'default', '', array( &$this, 'options_page_description' ), $this->plugin_file );
 		add_filter( 'whitelist_options', array( &$this, 'whitelist_options' ) );
 		foreach ( $this->get_option_names( false ) as $opt )
 			add_settings_field( $opt, $this->get_option_label( $opt ), array( &$this, 'display_option' ), $this->plugin_file, 'default', $opt );
@@ -259,11 +277,21 @@ abstract class C2C_Plugin_024 {
 	}
 
 	/**
-	 * Special output for the default section. Can be overridden if desired.
+	 * Outputs the descriptive text (and h2 heading) for the options page.
 	 *
+	 * Intended to be overridden by sub-class.
+	 *
+	 * @param string $localized_heading_text (optional) Localized page heading text.
 	 * @return void
 	 */
-	public function draw_default_section() { }
+	protected function options_page_description( $localized_heading_text = '' ) {
+		if ( empty( $localized_heading_text ) )
+			$localized_heading_text = $this->name;
+		if ( $localized_heading_text )
+			echo '<h2>' . $localized_heading_text . "</h2>\n";
+		if ( ! $this->disable_contextual_help )
+			echo '<p class="see-help">' . __( 'See the "Help" link to the top-right of the page for more help.', $this->textdomain ) . "</p>\n";
+	}
 
 	/**
 	 * Gets the label for a given option
@@ -380,6 +408,7 @@ abstract class C2C_Plugin_024 {
 			if ( empty( $this->$config ) )
 				die( "The plugin configuration option '$config' must be supplied." );
 		}
+
 		// Set/change configuration options based on sub-class changes.
 		if ( empty( $this->config ) )
 			$this->show_admin = false;
@@ -387,7 +416,7 @@ abstract class C2C_Plugin_024 {
 			// Initialize any option attributes that weren't specified by the plugin
 			foreach ( $this->get_option_names( true ) as $opt ) {
 				foreach ( $this->config_attributes as $attrib => $default) {
-					if ( !isset( $this->config[$opt][$attrib] ) )
+					if ( ! isset( $this->config[$opt][$attrib] ) )
 						$this->config[$opt][$attrib] = $default;
 				}
 			}
@@ -400,7 +429,7 @@ abstract class C2C_Plugin_024 {
 	 * @return void
 	 */
 	protected function load_textdomain() {
-		$subdir = empty( $this->textdomain_subdir ) ? '' : '/'.$this->textdomain_subdir;
+		$subdir = empty( $this->textdomain_subdir ) ? '' : DIRECTORY_SEPARATOR.$this->textdomain_subdir;
 		load_plugin_textdomain( $this->textdomain, false, basename( dirname( $this->plugin_file ) ) . $subdir );
 	}
 
@@ -432,12 +461,12 @@ abstract class C2C_Plugin_024 {
 
 		$help_url = admin_url( "plugin-install.php?tab=plugin-information&amp;plugin={$this->id_base}&amp;TB_iframe=true&amp;width=640&amp;height=656" );
 
-		echo '<p class="more-help">';
-		echo '<a title="' . esc_attr( sprintf( __( 'More information about %1$s %2$s', $this->textdomain ), $this->name, $this->version ) ) .
+		$help = '<p class="more-help">';
+		$help .= '<a title="' . esc_attr( sprintf( __( 'More information about %1$s %2$s', $this->textdomain ), $this->name, $this->version ) ) .
 			'" class="thickbox" href="' . $help_url . '">' . __( 'Click for more help on this plugin', $this->textdomain ) . '</a>' .
 			__( ' (especially check out the "Other Notes" tab, if present)', $this->textdomain );
-		echo ".</p>\n";
-		return;
+		$help .= ".</p>\n";
+		return $help;
 	}
 
 	/**
@@ -449,6 +478,7 @@ abstract class C2C_Plugin_024 {
 		global $c2c_plugin_max_css_version, $c2c_plugin_css_was_output;
 		if ( ( $c2c_plugin_max_css_version != $this->plugin_css_version ) || ( isset( $c2c_plugin_css_was_output ) && $c2c_plugin_css_was_output ) )
 			return;
+
 		$c2c_plugin_css_was_output = true;
 		$logo = plugins_url( 'c2c_minilogo.png', $this->plugin_file );
 		/**
@@ -487,9 +517,6 @@ abstract class C2C_Plugin_024 {
 		.c2c-input-help {color:#777;font-size:x-small;}
 		.c2c-fieldset {border:1px solid #ccc; padding:2px 8px;}
 		.c2c-textarea, .c2c-inline_textarea {width:95%;font-family:"Courier New", Courier, mono;}
-		.c2c-nowrap {
-			white-space:nowrap;overflow:auto;
-		}
 		.see-help {font-size:x-small;font-style:italic;}
 		.more-help {display:block;margin-top:8px;}
 		</style>
@@ -532,6 +559,20 @@ CSS;
 	}
 
 	/**
+	 * Adds donate link to plugin row.
+	 *
+	 */
+	public function donate_link( $links, $file ) {
+		if ( $file == $this->plugin_basename ) {
+			$donation_url  = 'https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=paypal%40scottreilly%2enet&item_name=';
+			$donation_url .= urlencode( sprintf( __( 'Donation for coffee2code plugin: %s', $this->textdomain ), $this->name ) );
+			$title         = __( 'Coffee fuels my coding.', $this->textdomain );
+			$links[] = '<a href="' . esc_url( $donation_url ) . '" title="' . esc_attr( $title ) . '">Donate</a>';
+		}
+		return $links;
+	}
+
+	/**
 	 * See if the setting is pertinent to this version of WP
 	 *
 	 * @since 013
@@ -545,8 +586,8 @@ CSS;
 		$ver_operators = array( 'wpgt' => '>', 'wpgte' => '>=', 'wplt' => '<', 'wplte' => '<=' );
 		foreach ( $ver_operators as $ver_check => $ver_op ) {
 			if ( isset( $this->config[$opt][$ver_check] )
-				&& !empty( $this->config[$opt][$ver_check] )
-				&& !version_compare( $wp_version, $this->config[$opt][$ver_check], $ver_op ) ) {
+				&& ! empty( $this->config[$opt][$ver_check] )
+				&& ! version_compare( $wp_version, $this->config[$opt][$ver_check], $ver_op ) ) {
 					$valid = false;
 					break;
 			}
@@ -561,7 +602,7 @@ CSS;
 	 * @return array Array of option names.
 	 */
 	protected function get_option_names( $include_non_options = false ) {
-		if ( !$include_non_options && !empty( $this->option_names ) )
+		if ( ! $include_non_options && ! empty( $this->option_names ) )
 			return $this->option_names;
 		if ( $include_non_options )
 			return array_keys( $this->config );
@@ -588,9 +629,10 @@ CSS;
 		$option_names = $this->get_option_names( !$with_current_values );
 		foreach ( $option_names as $opt )
 			$options[$opt] = $this->config[$opt]['default'];
-		if ( !$with_current_values )
+		if ( ! $with_current_values )
 			return $options;
-		$this->options = wp_parse_args( get_option( $this->admin_options_name ), $options );
+		$this->options_from_db = get_option( $this->admin_options_name );
+		$this->options = wp_parse_args( $this->options_from_db, $options );
 
 		// Check to see if the plugin has been updated
 		$this->check_if_plugin_was_upgraded();
@@ -636,10 +678,9 @@ CSS;
 	/**
 	 * Checks if the plugin's settings page has been submitted.
 	 *
-	 * @param string $prefix The prefix for the form's unique submit hidden input field
 	 * @return bool True if the plugin's settings have been submitted for saving, else false.
 	 */
-	protected function is_submitting_form( $prefix ) {
+	protected function is_submitting_form() {
 		return ( isset( $_POST['option_page'] ) && ( $_POST['option_page'] == $this->admin_options_name ) );
 	}
 
@@ -649,8 +690,7 @@ CSS;
 	 * @return bool True if on the plugin's settings page, else false.
 	 */
 	protected function is_plugin_admin_page() {
-		global $pagenow;
-		return ( basename( $pagenow, '.php' ) == $this->settings_page && isset( $_REQUEST['page'] ) && $_REQUEST['page'] == $this->plugin_basename );
+		return ( basename( $_SERVER['PHP_SELF'], '.php' ) == $this->settings_page && isset( $_REQUEST['page'] ) && $_REQUEST['page'] == $this->plugin_basename );
 	}
 
 	/**
@@ -679,7 +719,7 @@ CSS;
 			// Do nothing since it needs the values as an array
 			$popt .= '[]';
 		} elseif ( $datatype == 'array' ) {
-			if ( !is_array( $value ) )
+			if ( ! is_array( $value ) )
 				$value = '';
 			else {
 				if ( $input == 'textarea' || $input == 'inline_textarea' )
@@ -688,7 +728,7 @@ CSS;
 					$value = implode( ', ', $value );
 			}
 		} elseif ( $datatype == 'hash' && $input != 'select' ) {
-			if ( !is_array( $value ) )
+			if ( ! is_array( $value ) )
 				$value = '';
 			else {
 				$new_value = '';
@@ -700,13 +740,13 @@ CSS;
 		$attributes = $this->config[$opt]['input_attributes'];
 		$this->config[$opt]['class'][] = 'c2c-' . $input;
 		if ( ( 'textarea' == $input || 'inline_textarea' == $input ) && $this->config[$opt]['no_wrap'] ) {
-			$this->config[$opt]['class'][] = 'c2c-nowrap';
-			$attributes .= ' wrap="off"'; // Unfortunately CSS is not enough
+			$attributes .= ' wrap="off"'; // Does not validate, but only cross-browser technique
 		}
 		elseif ( in_array( $input, array( 'text', 'long_text', 'short_text' ) ) ) {
 			$this->config[$opt]['class'][]  = ( ( $input == 'short_text' ) ? 'small-text' : 'regular-text' );
 			if ( $input == 'long_text' )
 				$this->config[$opt]['class'][] = ' long-text';
+			$input = 'text';
 		}
 		$class = implode( ' ', $this->config[$opt]['class'] );
 		$attribs = "name='$popt' id='$opt' class='$class' $attributes";
@@ -747,23 +787,6 @@ CSS;
 	}
 
 	/**
-	 * Outputs the descriptive text (and h2 heading) for the options page.
-	 *
-	 * Intended to be overridden by sub-class.
-	 *
-	 * @param string $localized_heading_text (optional) Localized page heading text.
-	 * @return void
-	 */
-	protected function options_page_description( $localized_heading_text = '' ) {
-		if ( empty( $localized_heading_text ) )
-			$localized_heading_text = $this->name;
-		if ( $localized_heading_text )
-			echo '<h2>' . $localized_heading_text . "</h2>\n";
-		if ( !$this->disable_contextual_help )
-			echo '<p class="see-help">' . __( 'See the "Help" link to the top-right of the page for more help.', $this->textdomain ) . "</p>\n";
-	}
-
-	/**
 	 * Outputs the options page for the plugin, and saves user updates to the
 	 * options.
 	 *
@@ -782,8 +805,6 @@ CSS;
 
 		echo "<div class='wrap'>\n";
 		echo "<div class='icon32' style='width:44px;'><img src='$logo' alt='" . esc_attr__( 'A plugin by coffee2code', $this->textdomain ) . "' /><br /></div>\n";
-
-		$this->options_page_description();
 
 		do_action( $this->get_hook( 'before_settings_form' ), $this );
 

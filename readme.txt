@@ -2,25 +2,26 @@
 Contributors: coffee2code
 Donate link: http://coffee2code.com/donate
 Tags: admin, interface, minimal, customize, coffee2code
-Requires at least: 3.0
-Tested up to: 3.2.1
-Stable tag: 2.1
-Version: 2.1
+Requires at least: 3.1
+Tested up to: 3.3
+Stable tag: 2.2
+Version: 2.2
 
 Customize the WordPress admin pages by selectively removing interface elements.
 
 
 == Description ==
 
-This plugin uses a combination of CSS (when possible) and Javascript to removed specified admin interface elements.  These elements may be considered by some to be superfluous interface elements that are undesired for one reason or another, so this plugin aids in their visual removal.
+This plugin uses a combination of WordPress hooks, CSS (when possible), and Javascript (last resort) to removed specified admin interface elements.  These elements may be considered by some to be superfluous interface elements that are undesired for one reason or another, so this plugin aids in their visual removal.
 
 Each admin interface element is individually selected for removal.  The elements that can be removed are:
 
-* The header WordPress logo
+* The header WordPress logo (note that in WP 3.3. this functions as a menu)
 * The "Search Engines Blocked" link (only found in WP 3.0+ and 3.1+)
 * The favorites shortcut dropdown (only found in WP 3.0+ and 3.1+)
 * The "Howdy," greeting before your username
 * Your username link to your profile
+* Your avatar (only found in WP 3.3+)
 * The Dashboard link
 * The page header icon
 * The contextual "Help" link
@@ -31,7 +32,7 @@ Each admin interface element is individually selected for removal.  The elements
 
 Note: These settings are global and will affect all users who are able to visit the admin pages.
 
-Links: [Plugin Homepage](http://coffee2code.com/wp-plugins/admin-trim-interface/) | [Author Homepage](http://coffee2code.com)
+Links: [Plugin Homepage](http://coffee2code.com/wp-plugins/admin-trim-interface/) | [Plugin Directory Page](http://wordpress.org/extend/plugins/admin-trim-interface/) | [Author Homepage](http://coffee2code.com)
 
 
 == Installation ==
@@ -54,13 +55,36 @@ This plugin does not prevent access to the admin dashboard; it merely provides t
 
 == Screenshots ==
 
-1. A image indicating the different elements of the admin interface that can be selectively disabled by the plugin (WP 3.2+).
-2. A image indicating the different elements of the admin interface that can be selectively disabled by the plugin (WP 3.0+, 3.1+).
-3. A screenshot of the plugin's admin settings page.
-4. A screenshot of a fully trimmed admin interface.
+1. A image indicating the different elements of the admin interface that can be selectively disabled by the plugin (WP 3.3+).
+2. A image indicating the different elements of the admin interface that can be selectively disabled by the plugin (WP 3.2+).
+3. A image indicating the different elements of the admin interface that can be selectively disabled by the plugin (WP 3.0+, 3.1+).
+4. A screenshot of the plugin's admin settings page.
+5. A screenshot of a fully trimmed admin interface.
 
 
 == Changelog ==
+
+= 2.2 =
+* NOTE: v2.3 will remove support for versions of WP earlier than 3.3
+* Add 'hide_avatar' setting
+* Add hide_help_tabs(), clear_contextual_help(), admin_bar_menu()
+* Only add filter on gettext when WP < 3.3
+* Reposition legend image via CSS
+* Adjust selection logic for legend image (based on new WP version and images being renamed)
+* Add new screenshot-1.png for WP 3.3 and rename remaining images with one number higher
+* Bugfix: check if 'hide_favorite_actions' validly applies to this WP version before using it
+* Mark pre-WP3.3 code in anticipation of removal in next feature release
+* Update plugin framework to 031
+* Remove support for global $c2c_admin_trim_interface variable
+* Change parent constructor invocation
+* Explicitly declare methods public
+* Note compatibility through WP 3.3+
+* Drop support for versions of WP older than 3.1
+* Create 'lang' subdirectory and move .pot file into it
+* Regenerate .pot
+* Update screenshots for WP 3.3
+* Add link to plugin directory page to readme.txt
+* Update copyright date (2012)
 
 = 2.1 =
 * Dynamically number options rather than hardcoding numbers into label
@@ -136,6 +160,9 @@ This plugin does not prevent access to the admin dashboard; it merely provides t
 
 
 == Upgrade Notice ==
+
+= 2.2 =
+Recommended update: Updated trim capabilities to be WP 3.3 compatible; minor bugfix; dropped pre-WP 3.1 support; updated plugin framework.
 
 = 2.1 =
 Recommended update. Update trim capabilities to be WP 3.2 compatible; improved interface trimming techniques; dropped support for versions of WP older than 3.0; updated plugin framework; and more.
