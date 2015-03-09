@@ -1,11 +1,12 @@
 === Admin Trim Interface ===
 Contributors: coffee2code
-Donate link: http://coffee2code.com/donate
+Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=6ARCFJ9TX3522
 Tags: admin, interface, minimal, customize, coffee2code
-Requires at least: 3.1
-Tested up to: 3.3
-Stable tag: 2.2
-Version: 2.2
+License: GPLv2 or later
+License URI: http://www.gnu.org/licenses/gpl-2.0.html
+Requires at least: 3.8
+Tested up to: 4.1
+Stable tag: 3.0
 
 Customize the WordPress admin pages by selectively removing interface elements.
 
@@ -16,14 +17,12 @@ This plugin uses a combination of WordPress hooks, CSS (when possible), and Java
 
 Each admin interface element is individually selected for removal.  The elements that can be removed are:
 
-* The header WordPress logo (note that in WP 3.3. this functions as a menu)
-* The "Search Engines Blocked" link (only found in WP 3.0+ and 3.1+)
-* The favorites shortcut dropdown (only found in WP 3.0+ and 3.1+)
-* The "Howdy," greeting before your username
-* Your username link to your profile
-* Your avatar (only found in WP 3.3+)
-* The Dashboard link
-* The page header icon
+* The header WordPress logo (bear in mind this functions as a menu) in the admin bar
+* The home icon next to your site's name in the admin bar
+* The "Howdy," greeting before your username in the admin bar
+* Your username link to your profile in the admin bar
+* Your avatar in the admin bar
+* The Dashboard menu link in the sidebar
 * The contextual "Help" link
 * The footer links
 * The WordPress version in the footer
@@ -32,14 +31,14 @@ Each admin interface element is individually selected for removal.  The elements
 
 Note: These settings are global and will affect all users who are able to visit the admin pages.
 
-Links: [Plugin Homepage](http://coffee2code.com/wp-plugins/admin-trim-interface/) | [Plugin Directory Page](http://wordpress.org/extend/plugins/admin-trim-interface/) | [Author Homepage](http://coffee2code.com)
+Links: [Plugin Homepage](http://coffee2code.com/wp-plugins/admin-trim-interface/) | [Plugin Directory Page](https://wordpress.org/plugins/admin-trim-interface/) | [Author Homepage](http://coffee2code.com)
 
 
 == Installation ==
 
 1. Unzip `admin-trim-interface.zip` inside the `/wp-content/plugins/` directory for your site (or install via the built-in WordPress plugin installer)
 1. Activate the plugin through the 'Plugins' admin menu in WordPress
-1. Click the plugin's 'Settings' link next to its 'Deactivate' link (still on the Plugins page), or click on the Theme -> Admin Trim Interface link, to go to the plugin's admin settings page.  Customize the settings to selectively remove admin interface elements.
+1. Click the plugin's 'Settings' link next to its 'Deactivate' link (still on the Plugins page), or click on the Appearance -> Admin Trim Interface link, to go to the plugin's admin settings page.  Customize the settings to selectively remove admin interface elements.
 
 
 == Frequently Asked Questions ==
@@ -55,14 +54,52 @@ This plugin does not prevent access to the admin dashboard; it merely provides t
 
 == Screenshots ==
 
-1. A image indicating the different elements of the admin interface that can be selectively disabled by the plugin (WP 3.3+).
-2. A image indicating the different elements of the admin interface that can be selectively disabled by the plugin (WP 3.2+).
-3. A image indicating the different elements of the admin interface that can be selectively disabled by the plugin (WP 3.0+, 3.1+).
+1. A image identifying the different elements of the admin interface that can be selectively disabled by the plugin.
+2. An image of the user section of the admin bar when "Howdy" and the username is hidden, leaving only the avatar.
+3. An image of the user section of the admin bar when "Howdy" and the avatar is hidden, leaving only the username.
 4. A screenshot of the plugin's admin settings page.
 5. A screenshot of a fully trimmed admin interface.
 
 
 == Changelog ==
+
+= 3.0 (2015-03-08) =
+* Add ability to trim home icon in admin bar
+* Apply admin bar trimmings to the front-end
+* Drop compatibility with version of WP older than 3.8
+    * Remove now-unused settings: hide_visit_site_link, hide_search_engines_blocked, hide_favorite_actions, hide_turbo_link, hide_page_heading_icon
+    * Remove now-unused functions: `add_admin_js()`, `admin_user_info_links()`, `remove_howdy()`
+    * Discontinue output of now-unused CSS and JS
+* Remove `is_admin()` restriction so admin toolbar is trimmed on front-end too
+* Update plugin framework to 039
+* Explicitly declare `activation()` and `uninstall()` static
+* Better singleton implementation:
+    * Add `get_instance()` static method for returning/creating singleton instance
+    * Make static variable 'instance' private
+    * Make constructor protected
+    * Additional related changes in plugin framework (protected constructor, erroring `__clone()` and `__wakeup()`)
+* Add checks to prevent execution of code if file is directly accessed
+* Rename `add_admin_css()` to `add_css()`
+* For `options_page_description()`, match method signature of parent class to prevent PHP warnings
+* Re-license as GPLv2 or later (from X11)
+* Reformat plugin header
+* Add 'License' and 'License URI' header tags to readme.txt and plugin file
+* Use explicit path for `require_once()`
+* Discontinue use of PHP4-style constructor
+* Discontinue use of explicit pass-by-reference for objects
+* Remove ending PHP close tag
+* Minor documentation improvements throughout
+* Minor code reformatting (spacing, bracing)
+* Change documentation links to wp.org to be https
+* Note compatibility through WP 4.1+
+* Update copyright date (2015)
+* Regenerate .pot
+* Change donate link
+* Add assets directory to plugin repository checkout
+* Update screenshots
+* Move screenshots into repo's assets directory
+* Add banner
+* Add icon
 
 = 2.2 =
 * NOTE: v2.3 will remove support for versions of WP earlier than 3.3
@@ -160,6 +197,9 @@ This plugin does not prevent access to the admin dashboard; it merely provides t
 
 
 == Upgrade Notice ==
+
+= 3.0 =
+Recommended update: Updated trim capabilities to be WP 4.1 compatible; dropped pre-WP 3.8 support; updated plugin framework.
 
 = 2.2 =
 Recommended update: Updated trim capabilities to be WP 3.3 compatible; minor bugfix; dropped pre-WP 3.1 support; updated plugin framework.
