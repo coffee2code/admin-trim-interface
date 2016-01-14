@@ -1,17 +1,16 @@
 <?php
 /**
  * Plugin Name: Admin Trim Interface
- * Version:     3.0
+ * Version:     3.1
  * Plugin URI:  http://coffee2code.com/wp-plugins/admin-trim-interface/
  * Author:      Scott Reilly
  * Author URI:  http://coffee2code.com/
  * Text Domain: admin-trim-interface
- * Domain Path: /lang/
  * License:     GPLv2 or later
  * License URI: http://www.gnu.org/licenses/gpl-2.0.html
  * Description: Customize the WordPress admin pages by selectively removing interface elements.
  *
- * Compatible with WordPress 3.8 through 4.1+.
+ * Compatible with WordPress 3.8 through 4.4+.
  *
  * =>> Read the accompanying readme.txt file for instructions and documentation.
  * =>> Also, visit the plugin's homepage for additional information and updates.
@@ -19,17 +18,18 @@
  *
  * @package Admin_Trim_Interface
  * @author  Scott Reilly
- * @version 3.0
+ * @version 3.1
  */
 
 /*
  * TODO:
  * - Options to remove other admin bar icons: my sites
  * - Options to remvoe other admin bar nodes: udpates, comments, new content, search (front-end)
+ * - Add unit tests
  */
 
 /*
-	Copyright (c) 2009-2015 by Scott Reilly (aka coffee2code)
+	Copyright (c) 2009-2016 by Scott Reilly (aka coffee2code)
 
 	This program is free software; you can redistribute it and/or
 	modify it under the terms of the GNU General Public License
@@ -52,7 +52,7 @@ if ( ! class_exists( 'c2c_AdminTrimInterface' ) ) :
 
 require_once( dirname( __FILE__ ) . DIRECTORY_SEPARATOR . 'c2c-plugin.php' );
 
-class c2c_AdminTrimInterface extends C2C_Plugin_039 {
+final class c2c_AdminTrimInterface extends c2c_AdminTrimInterface_Plugin_040 {
 
 	/**
 	 * The one true instance.
@@ -78,7 +78,7 @@ class c2c_AdminTrimInterface extends C2C_Plugin_039 {
 	 * Constructor
 	 */
 	protected function __construct() {
-		parent::__construct( '3.0', 'admin-trim-interface', 'c2c', __FILE__, array( 'settings_page' => 'themes' ) );
+		parent::__construct( '3.1', 'admin-trim-interface', 'c2c', __FILE__, array( 'settings_page' => 'themes' ) );
 		register_activation_hook( __FILE__, array( __CLASS__, 'activation' ) );
 		self::$instance = $this;
 	}
@@ -107,28 +107,28 @@ class c2c_AdminTrimInterface extends C2C_Plugin_039 {
 	 * Initializes the plugin's configuration and localizable text variables.
 	 */
 	public function load_config() {
-		$this->name      = __( 'Admin Trim Interface', $this->textdomain );
-		$this->menu_name = __( 'Admin Trim Interface', $this->textdomain );
+		$this->name      = __( 'Admin Trim Interface', 'admin-trim-interface' );
+		$this->menu_name = __( 'Admin Trim Interface', 'admin-trim-interface' );
 
 		$this->config = array(
 			'hide_wp_logo' => array( 'input' => 'checkbox', 'default' => false, 'numbered' => true,
-					'label' => __( 'Hide WordPress logo in admin bar?', $this->textdomain ) ),
+					'label' => __( 'Hide WordPress logo in admin bar?', 'admin-trim-interface' ) ),
 			'hide_home_icon' => array( 'input' => 'checkbox', 'default' => false, 'numbered' => true,
-					'label' => __( 'Hide home icon in admin bar?', $this->textdomain ) ),
+					'label' => __( 'Hide home icon in admin bar?', 'admin-trim-interface' ) ),
 			'hide_howdy' => array( 'input' => 'checkbox', 'default' => false, 'numbered' => true,
-					'label' => __( 'Hide "Howdy"?', $this->textdomain ) ),
+					'label' => __( 'Hide "Howdy"?', 'admin-trim-interface' ) ),
 			'hide_username' => array( 'input' => 'checkbox', 'default' => false, 'numbered' => true,
-					'label' => __( 'Hide username in admin bar?', $this->textdomain ) ),
+					'label' => __( 'Hide username in admin bar?', 'admin-trim-interface' ) ),
 			'hide_avatar' => array( 'input' => 'checkbox', 'default' => false, 'wpgte' => '3.2.99', 'numbered' => true,
-					'label' => __( 'Hide user avatar in admin bar?', $this->textdomain ) ),
+					'label' => __( 'Hide user avatar in admin bar?', 'admin-trim-interface' ) ),
 			'hide_dashboard' => array( 'input' => 'checkbox', 'default' => false, 'numbered' => true,
-					'label' => __( 'Hide Dashboard menu link?', $this->textdomain ) ),
+					'label' => __( 'Hide Dashboard menu link?', 'admin-trim-interface' ) ),
 			'hide_help' => array( 'input' => 'checkbox', 'default' => false, 'numbered' => true,
-					'label' => __( 'Hide contextual "Help" link?', $this->textdomain ) ),
+					'label' => __( 'Hide contextual "Help" link?', 'admin-trim-interface' ) ),
 			'hide_footer_left' => array( 'input' => 'checkbox', 'default' => false, 'numbered' => true,
-					'label' => __( 'Hide footer links?', $this->textdomain ) ),
+					'label' => __( 'Hide footer links?', 'admin-trim-interface' ) ),
 			'hide_footer_version' => array( 'input' => 'checkbox', 'default' => false, 'numbered' => true,
-					'label' => __( 'Hide WordPress version in footer?', $this->textdomain ) )
+					'label' => __( 'Hide WordPress version in footer?', 'admin-trim-interface' ) )
 		);
 	}
 
@@ -343,9 +343,9 @@ HTML;
 	 */
 	public function options_page_description( $localized_heading_text = '' ) {
 		$options = $this->get_options();
-		parent::options_page_description( __( 'Admin Trim Interface Settings', $this->textdomain ) );
-		echo '<p>' . __( 'Use the image at the right to correlate the settings below with the admin interface element they hide.', $this->textdomain ) . '</p>';
-		echo '<p>' . __( 'Note: These settings are global and will affect all users who are able to visit the admin pages.', $this->textdomain ) . '</p>';
+		parent::options_page_description( __( 'Admin Trim Interface Settings', 'admin-trim-interface' ) );
+		echo '<p>' . __( 'Use the image at the right to correlate the settings below with the admin interface element they hide.', 'admin-trim-interface' ) . '</p>';
+		echo '<p>' . __( 'Note: These settings are global and will affect all users who are able to visit the admin pages.', 'admin-trim-interface' ) . '</p>';
 	}
 
 	/**
@@ -355,7 +355,7 @@ HTML;
 		$link = plugins_url( 'screenshot-1.png', __FILE__ );
 		echo "<a href='$link' title='settings to admin interface mapping; click to view full size' class='c2c-ati-image'>";
 		echo "<img src='$link' width='425' alt='settings to admin interface mapping' />";
-		echo '<br /><center><em>' . __( 'Click to view full size.', $this->textdomain ) . '</em></center></a>';
+		echo '<br /><center><em>' . __( 'Click to view full size.', 'admin-trim-interface' ) . '</em></center></a>';
 	}
 } // end c2c_AdminTrimInterface
 

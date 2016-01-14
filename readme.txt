@@ -5,8 +5,8 @@ Tags: admin, interface, minimal, customize, coffee2code
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Requires at least: 3.8
-Tested up to: 4.1
-Stable tag: 3.0
+Tested up to: 4.4
+Stable tag: 3.1
 
 Customize the WordPress admin pages by selectively removing interface elements.
 
@@ -62,6 +62,26 @@ This plugin does not prevent access to the admin dashboard; it merely provides t
 
 
 == Changelog ==
+
+= 3.1 (2016-01-14) =
+Highlights:
+* This release adds support for language packs and has many minor behind-the-scenes changes.
+
+Details:
+* Change: Update plugin framework to 040:
+    * Change class name to c2c_AddAdminCSS_Plugin_040 to be plugin-specific.
+    * Set textdomain using a string instead of a variable.
+    * Don't load textdomain from file.
+    * Change admin page header from 'h2' to 'h1' tag.
+    * Add `c2c_plugin_version()`.
+    * Formatting improvements to inline docs.
+* Change: Add support for language packs:
+    * Set textdomain using a string instead of a variable.
+    * Remove .pot file and /lang subdirectory.
+* Change: Declare class as final.
+* Add: Create empty index.php to prevent files from being listed if web server has enabled directory listings.
+* Change: Note compatibility through WP 4.4+.
+* Change: Update copyright date (2016).
 
 = 3.0 (2015-03-08) =
 * Add ability to trim home icon in admin bar
@@ -197,6 +217,9 @@ This plugin does not prevent access to the admin dashboard; it merely provides t
 
 
 == Upgrade Notice ==
+
+= 3.1 =
+Minor update: improved support for localization; verified compatibility through WP 4.4; updated copyright date (2016)
 
 = 3.0 =
 Recommended update: Updated trim capabilities to be WP 4.1 compatible; dropped pre-WP 3.8 support; updated plugin framework.
