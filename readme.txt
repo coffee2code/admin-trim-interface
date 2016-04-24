@@ -64,6 +64,7 @@ This plugin does not prevent access to the admin dashboard; it merely provides t
 == Changelog ==
 
 = () =
+* Change: Minor code reformatting.
 * Change: Note compatibility through WP 4.5+.
 * New: Add LICENSE file.
 

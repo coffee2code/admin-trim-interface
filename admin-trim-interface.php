@@ -111,24 +111,60 @@ final class c2c_AdminTrimInterface extends c2c_AdminTrimInterface_Plugin_040 {
 		$this->menu_name = __( 'Admin Trim Interface', 'admin-trim-interface' );
 
 		$this->config = array(
-			'hide_wp_logo' => array( 'input' => 'checkbox', 'default' => false, 'numbered' => true,
-					'label' => __( 'Hide WordPress logo in admin bar?', 'admin-trim-interface' ) ),
-			'hide_home_icon' => array( 'input' => 'checkbox', 'default' => false, 'numbered' => true,
-					'label' => __( 'Hide home icon in admin bar?', 'admin-trim-interface' ) ),
-			'hide_howdy' => array( 'input' => 'checkbox', 'default' => false, 'numbered' => true,
-					'label' => __( 'Hide "Howdy"?', 'admin-trim-interface' ) ),
-			'hide_username' => array( 'input' => 'checkbox', 'default' => false, 'numbered' => true,
-					'label' => __( 'Hide username in admin bar?', 'admin-trim-interface' ) ),
-			'hide_avatar' => array( 'input' => 'checkbox', 'default' => false, 'wpgte' => '3.2.99', 'numbered' => true,
-					'label' => __( 'Hide user avatar in admin bar?', 'admin-trim-interface' ) ),
-			'hide_dashboard' => array( 'input' => 'checkbox', 'default' => false, 'numbered' => true,
-					'label' => __( 'Hide Dashboard menu link?', 'admin-trim-interface' ) ),
-			'hide_help' => array( 'input' => 'checkbox', 'default' => false, 'numbered' => true,
-					'label' => __( 'Hide contextual "Help" link?', 'admin-trim-interface' ) ),
-			'hide_footer_left' => array( 'input' => 'checkbox', 'default' => false, 'numbered' => true,
-					'label' => __( 'Hide footer links?', 'admin-trim-interface' ) ),
-			'hide_footer_version' => array( 'input' => 'checkbox', 'default' => false, 'numbered' => true,
-					'label' => __( 'Hide WordPress version in footer?', 'admin-trim-interface' ) )
+			'hide_wp_logo' => array(
+				'input'    => 'checkbox',
+				'default'  => false, 'numbered' => true,
+				'label'    => __( 'Hide WordPress logo in admin bar?', 'admin-trim-interface' ),
+			),
+			'hide_home_icon' => array(
+				'input'    => 'checkbox',
+				'default'  => false,
+				'numbered' => true,
+				'label'    => __( 'Hide home icon in admin bar?', 'admin-trim-interface' ),
+			),
+			'hide_howdy' => array(
+				'input'    => 'checkbox',
+				'default'  => false,
+				'numbered' => true,
+				'label'    => __( 'Hide "Howdy"?', 'admin-trim-interface' ),
+			),
+			'hide_username' => array(
+				'input'    => 'checkbox',
+				'default'  => false,
+				'numbered' => true,
+				'label'    => __( 'Hide username in admin bar?', 'admin-trim-interface' ),
+			),
+			'hide_avatar' => array(
+				'input'    => 'checkbox',
+				'default'  => false,
+				'wpgte'    => '3.2.99',
+				'numbered' => true,
+				'label'    => __( 'Hide user avatar in admin bar?', 'admin-trim-interface' ),
+			),
+			'hide_dashboard' => array(
+				'input'    => 'checkbox',
+				'default'  => false,
+				'numbered' => true,
+				'label'    => __( 'Hide Dashboard menu link?', 'admin-trim-interface' ),
+			),
+			'hide_help' => array(
+				'input'    => 'checkbox',
+				'default'  => false,
+				'numbered' => true,
+				'label'    => __( 'Hide contextual "Help" link?', 'admin-trim-interface' ),
+			),
+			'hide_footer_left' => array(
+				'input'    => 'checkbox',
+				'default'  => false,
+				'numbered' => true,
+				'label'    => __( 'Hide footer links?', 'admin-trim-interface' ),
+			),
+			'hide_footer_version' => array(
+				'input'    => 'checkbox',
+				'default'  => false,
+				'numbered' => true,
+				'label'    => __( 'Hide WordPress version in footer?', 'admin-trim-interface' ),
+			),
 		);
 	}
 
