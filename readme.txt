@@ -64,6 +64,13 @@ This plugin does not prevent access to the admin dashboard; it merely provides t
 == Changelog ==
 
 = () =
+* Change: Update plugin framework to 041:
+    * For a setting that is of datatype array, ensure its default value is an array.
+    * Make `verify_config()` public.
+    * Use `<p class="description">` for input field help text instead of custom styled span.
+    * Remove output of markup for adding icon to setting page header.
+    * Remove styling for .c2c-input-help.
+    * Add braces around the few remaining single line conditionals.
 * Change: Minor code reformatting.
 * Change: Note compatibility through WP 4.5+.
 * New: Add LICENSE file.
