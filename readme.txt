@@ -64,6 +64,7 @@ This plugin does not prevent access to the admin dashboard; it merely provides t
 == Changelog ==
 
 = () =
+* New: Add basic unit tests
 * Change: Update plugin framework to 047
     * 047:
     * Don't save default setting values to database on install
