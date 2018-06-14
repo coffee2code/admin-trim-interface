@@ -4,8 +4,8 @@ Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_i
 Tags: admin, interface, minimal, customize, coffee2code
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
-Requires at least: 3.8
-Tested up to: 4.5
+Requires at least: 4.7
+Tested up to: 4.9
 Stable tag: 3.1
 
 Customize the WordPress admin pages by selectively removing interface elements.
@@ -72,8 +72,9 @@ This plugin does not prevent access to the admin dashboard; it merely provides t
     * Remove styling for .c2c-input-help.
     * Add braces around the few remaining single line conditionals.
 * Change: Minor code reformatting.
-* Change: Note compatibility through WP 4.5+.
 * New: Add LICENSE file.
+* Change: Note compatibility through WP 4.9+
+* Change: Drop compatibility with versions of WP older than 4.7
 * Change: Update copyright date (2018)
 
 = 3.1 (2016-01-14) =
