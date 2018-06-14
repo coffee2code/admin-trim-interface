@@ -366,6 +366,10 @@ final class c2c_AdminTrimInterface extends c2c_AdminTrimInterface_Plugin_047 {
 			$extra_css .= <<<CSS
 				.c2c-ati-image { position: absolute; left: 400px; top: 170px; }
 				.appearance_page_admin-trim-interface-admin-trim-interface .form-table th { width: 300px; }
+				@media screen and (max-width: 782px) {
+					.appearance_page_admin-trim-interface-admin-trim-interface .c2c-form .form-table { margin-top: 350px; }
+					.c2c-ati-image { left: 0; }
+				}
 
 CSS;
 		}
