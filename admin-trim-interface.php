@@ -328,7 +328,7 @@ final class c2c_AdminTrimInterface extends c2c_AdminTrimInterface_Plugin_047 {
 	 * @return string The error message.
 	 */
 	public function explain_nonce( $msg ) {
-		return __( 'Unable to perform action: Your WordPress session has expired.  Please login and try again.' );
+		return __( 'Your session has expired. Please log in to continue where you left off.' );
 	}
 
 	/**
