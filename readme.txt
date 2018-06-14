@@ -95,8 +95,8 @@ This plugin does not prevent access to the admin dashboard; it merely provides t
     * Remove output of markup for adding icon to setting page header.
     * Remove styling for .c2c-input-help.
     * Add braces around the few remaining single line conditionals.
-* Change: Minor code reformatting.
-* New: Add LICENSE file.
+* New: Add LICENSE file
+* Change: Minor code reformatting
 * Change: Add GitHub link to readme
 * Change: Note compatibility through WP 4.9+
 * Change: Drop compatibility with versions of WP older than 4.7
