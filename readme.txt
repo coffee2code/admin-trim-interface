@@ -95,6 +95,7 @@ This plugin does not prevent access to the admin dashboard; it merely provides t
     * Remove output of markup for adding icon to setting page header.
     * Remove styling for .c2c-input-help.
     * Add braces around the few remaining single line conditionals.
+* New: Add README.md
 * New: Add LICENSE file
 * Change: Minor code reformatting
 * Change: Add GitHub link to readme
