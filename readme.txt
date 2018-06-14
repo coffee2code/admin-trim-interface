@@ -36,7 +36,7 @@ Links: [Plugin Homepage](http://coffee2code.com/wp-plugins/admin-trim-interface/
 
 == Installation ==
 
-1. Unzip `admin-trim-interface.zip` inside the `/wp-content/plugins/` directory for your site (or install via the built-in WordPress plugin installer)
+1. Install via the built-in WordPress plugin installer. Or download and unzip `admin-trim-interface.zip` inside the plugins directory for your site (typically `wp-content/plugins/`)
 1. Activate the plugin through the 'Plugins' admin menu in WordPress
 1. Click the plugin's 'Settings' link next to its 'Deactivate' link (still on the Plugins page), or click on the Appearance -> Admin Trim Interface link, to go to the plugin's admin settings page.  Customize the settings to selectively remove admin interface elements.
 
@@ -77,6 +77,7 @@ This plugin does not prevent access to the admin dashboard; it merely provides t
 * Change: Note compatibility through WP 4.9+
 * Change: Drop compatibility with versions of WP older than 4.7
 * Change: Update copyright date (2018)
+* Change: Update installation instruction to prefer built-in installer over .zip file
 * Change: Fix changelog entry for v3.1 for proper rendering in Plugin Directory
 
 = 3.1 (2016-01-14) =
