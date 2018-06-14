@@ -98,6 +98,7 @@ This plugin does not prevent access to the admin dashboard; it merely provides t
     * Add braces around the few remaining single line conditionals.
 * New: Add README.md
 * New: Add LICENSE file
+* Change: Give settings checkboxes more width so checkboxes don't always flow below their labels
 * Change: Store setting name in constant
 * Change: Update session expiration error message to sync with one that WP core uses
 * Change: Switch to outputting markup with `printf()`
