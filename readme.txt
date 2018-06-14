@@ -64,7 +64,31 @@ This plugin does not prevent access to the admin dashboard; it merely provides t
 == Changelog ==
 
 = () =
-* Change: Update plugin framework to 041:
+* Change: Update plugin framework to 047
+    * 047:
+    * Don't save default setting values to database on install
+    * Change "Cheatin', huh?" error messages to "Something went wrong.", consistent with WP core
+    * Note compatibility through WP 4.9+
+    * Drop compatibility with version of WP older than 4.7
+    * 046:
+    * Fix `reset_options()` to reference instance variable `$options`
+    * Note compatibility through WP 4.7+
+    * Update copyright date (2017)
+    * 045:
+    * Ensure `reset_options()` resets values saved in the database
+    * 044:
+    * Add `reset_caches()` to clear caches and memoized data. Use it in `reset_options()` and `verify_config()`.
+    * Add `verify_options()` with logic extracted from `verify_config()` for initializing default option attributes.
+    * Add  `add_option()` to add a new option to the plugin's configuration.
+    * Add filter 'sanitized_option_names' to allow modifying the list of whitelisted option names.
+    * Change: Refactor `get_option_names()`.
+    * 043:
+    * Disregard invalid lines supplied as part of hash option value.
+    * 042:
+    * Update `disable_update_check()` to check for HTTP and HTTPS for plugin update check API URL.
+    * Translate "Donate" in footer message.
+    * Note compatibility through WP 4.5.
+    * 041:
     * For a setting that is of datatype array, ensure its default value is an array.
     * Make `verify_config()` public.
     * Use `<p class="description">` for input field help text instead of custom styled span.
