@@ -397,7 +397,7 @@ HTML;
 	public function options_page_description( $localized_heading_text = '' ) {
 		$options = $this->get_options();
 		parent::options_page_description( __( 'Admin Trim Interface Settings', 'admin-trim-interface' ) );
-		echo '<p>' . __( 'Use the image at the right to correlate the settings below with the admin interface element they hide.', 'admin-trim-interface' ) . '</p>';
+		echo '<p>' . __( 'Use the image below to correlate the settings below with the admin interface element they hide.', 'admin-trim-interface' ) . '</p>';
 		echo '<p>' . __( 'Note: These settings are global and will affect all users who are able to visit the admin pages.', 'admin-trim-interface' ) . '</p>';
 	}
 
