@@ -398,8 +398,14 @@ HTML;
 	 */
 	public function show_legend_image() {
 		$link = plugins_url( 'screenshot-1.png', __FILE__ );
-		echo "<a href='$link' title='settings to admin interface mapping; click to view full size' class='c2c-ati-image'>";
-		echo "<img src='$link' width='425' alt='settings to admin interface mapping' />";
+		printf(
+			'<a href="%s" title="%s" class="%s"><img src="%s" width="425" alt="%s" />',
+			esc_url( $link ),
+			esc_attr__( 'Settings to admin interface mapping; click to view full size', 'admin-trim-interface' ),
+			'c2c-ati-image',
+			esc_url( $link ),
+			esc_attr__( 'Settings to admin interface mapping', 'admin-trim-interface' )
+		);
 		echo '<br /><center><em>' . __( 'Click to view full size.', 'admin-trim-interface' ) . '</em></center></a>';
 	}
 } // end c2c_AdminTrimInterface
