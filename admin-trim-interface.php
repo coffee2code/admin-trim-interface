@@ -121,7 +121,8 @@ final class c2c_AdminTrimInterface extends c2c_AdminTrimInterface_Plugin_047 {
 		$this->config = array(
 			'hide_wp_logo' => array(
 				'input'    => 'checkbox',
-				'default'  => false, 'numbered' => true,
+				'default'  => false,
+				'numbered' => true,
 				'label'    => __( 'Hide WordPress logo in admin bar?', 'admin-trim-interface' ),
 			),
 			'hide_home_icon' => array(
@@ -307,7 +308,7 @@ final class c2c_AdminTrimInterface extends c2c_AdminTrimInterface_Plugin_047 {
 			$howdy = $options['hide_username'] ? __( 'Howdy' ) : sprintf( __( 'Howdy, %1$s' ), $current_user->display_name );
 		}
 
-		$class = empty( $avatar ) ? '' : 'with-avatar';
+		$class = $avatar ? 'with-avatar' : '';
 
 		$wp_admin_bar->add_menu( array(
 			'id'        => 'my-account',
@@ -315,7 +316,7 @@ final class c2c_AdminTrimInterface extends c2c_AdminTrimInterface_Plugin_047 {
 			'title'     => $howdy . $avatar,
 			'href'      => $profile_url,
 			'meta'      => array(
-				'class'     => $class,
+				'class' => $class,
 			),
 		) );
 	}
@@ -365,9 +366,9 @@ final class c2c_AdminTrimInterface extends c2c_AdminTrimInterface_Plugin_047 {
 			$extra_css .= ".c2c-ati-image { position:absolute;left:300px;top:170px; }\n";
 		}
 
-		if ( ! empty( $css ) || ! empty( $extra_css ) ) {
+		if ( $css || $extra_css ) {
 			$css = implode( ', ', $css );
-			if ( ! empty( $css ) ) {
+			if ( $css ) {
 				$css = "$css { display:none; }\n";
 			}
 			echo <<<HTML
