@@ -55,6 +55,14 @@ require_once( dirname( __FILE__ ) . DIRECTORY_SEPARATOR . 'c2c-plugin.php' );
 final class c2c_AdminTrimInterface extends c2c_AdminTrimInterface_Plugin_047 {
 
 	/**
+	 * Name of plugin's setting.
+	 *
+	 * @since 3.2
+	 * @var string
+	 */
+	const SETTING_NAME = 'c2c_admin_trim_interface';
+
+	/**
 	 * The one true instance.
 	 *
 	 * @var c2c_AdminTrimInterface
@@ -100,7 +108,7 @@ final class c2c_AdminTrimInterface extends c2c_AdminTrimInterface_Plugin_047 {
 	 * @since 2.0
 	 */
 	public static function uninstall() {
-		delete_option( 'c2c_admin_trim_interface' );
+		delete_option( self::SETTING_NAME );
 	}
 
 	/**

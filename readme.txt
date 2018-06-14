@@ -97,6 +97,7 @@ This plugin does not prevent access to the admin dashboard; it merely provides t
     * Add braces around the few remaining single line conditionals.
 * New: Add README.md
 * New: Add LICENSE file
+* Change: Store setting name in constant
 * Change: Minor code reformatting
 * Change: Add GitHub link to readme
 * Change: Note compatibility through WP 4.9+
