@@ -74,6 +74,7 @@ This plugin does not prevent access to the admin dashboard; it merely provides t
 * Change: Minor code reformatting.
 * Change: Note compatibility through WP 4.5+.
 * New: Add LICENSE file.
+* Change: Update copyright date (2018)
 
 = 3.1 (2016-01-14) =
 Highlights:
