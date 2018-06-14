@@ -77,12 +77,15 @@ This plugin does not prevent access to the admin dashboard; it merely provides t
 * Change: Note compatibility through WP 4.9+
 * Change: Drop compatibility with versions of WP older than 4.7
 * Change: Update copyright date (2018)
+* Change: Fix changelog entry for v3.1 for proper rendering in Plugin Directory
 
 = 3.1 (2016-01-14) =
 Highlights:
+
 * This release adds support for language packs and has many minor behind-the-scenes changes.
 
 Details:
+
 * Change: Update plugin framework to 040:
     * Change class name to c2c_AddAdminCSS_Plugin_040 to be plugin-specific.
     * Set textdomain using a string instead of a variable.
