@@ -8,7 +8,7 @@
  * Text Domain: admin-trim-interface
  * License:     GPLv2 or later
  * License URI: http://www.gnu.org/licenses/gpl-2.0.html
- * Description: Customize the WordPress admin pages by selectively removing interface elements.
+ * Description: Customize the WordPress admin pages by selectively removing interface elements on a per-user basis.
  *
  * Compatible with WordPress 4.7 through 4.9+.
  *

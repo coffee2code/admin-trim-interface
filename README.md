@@ -1,6 +1,6 @@
 # Admin Trim Interface
 
-A plugin for WordPress that automatically turns plaintext URLs and email addresses into links.
+A plugin for WordPress that allows for customization of admin pages by offering each user the ability to selectively remove interface elements.
 
 This plugin is available in the WordPress Plugin Directory: https://wordpress.org/plugins/admin-trim-interface/
 

@@ -8,7 +8,7 @@ Requires at least: 4.7
 Tested up to: 4.9
 Stable tag: 3.1
 
-Customize the WordPress admin pages by selectively removing interface elements.
+Customize the WordPress admin pages by selectively removing interface elements on a per-user basis.
 
 
 == Description ==
