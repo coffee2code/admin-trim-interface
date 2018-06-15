@@ -119,6 +119,9 @@ final class c2c_AdminTrimInterface extends c2c_AdminTrimInterface_Plugin_047 {
 		$this->menu_name = __( 'Admin Trim Interface', 'admin-trim-interface' );
 
 		$this->config = array(
+			'legend_image' => array(
+				'input'    => 'custom',
+			),
 			'hide_wp_logo' => array(
 				'input'    => 'checkbox',
 				'default'  => false,
@@ -192,7 +195,7 @@ final class c2c_AdminTrimInterface extends c2c_AdminTrimInterface_Plugin_047 {
 		add_action( 'admin_head',                              array( $this, 'hide_help_tabs' ) );
 		add_action( 'admin_notices',                           array( $this, 'show_admin_notices' ) );
 		add_filter( 'explain_nonce_'.$this->nonce_field,       array( $this, 'explain_nonce' ) );
-		add_action( $this->get_hook( 'before_settings_form' ), array( $this, 'show_legend_image' ) );
+		add_action( $this->get_hook( 'custom_display_option'), array( $this, 'show_legend_image' ) );
 	}
 
 	/**
@@ -382,11 +385,12 @@ final class c2c_AdminTrimInterface extends c2c_AdminTrimInterface_Plugin_047 {
 		// Style the legend image on the plugin's setting page.
 		if ( is_admin() ) {
 			$extra_css .= <<<CSS
-				.c2c-ati-image { position: absolute; left: 400px; top: 170px; }
+				.c2c-ati-image { position: absolute; left: 400px; }
 				.appearance_page_admin-trim-interface-admin-trim-interface .form-table th { width: 300px; }
+				.appearance_page_admin-trim-interface-admin-trim-interface .c2c-form .form-table tr:first-child { position: absolute; }
 				@media screen and (max-width: 782px) {
-					.appearance_page_admin-trim-interface-admin-trim-interface .c2c-form .form-table { margin-top: 350px; }
-					.c2c-ati-image { left: 0; }
+					.appearance_page_admin-trim-interface-admin-trim-interface .c2c-form .form-table tr:first-child { position: initial; }
+					.c2c-ati-image { position: initial; left: 0; }
 				}
 
 CSS;
