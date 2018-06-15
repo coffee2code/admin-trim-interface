@@ -66,7 +66,10 @@ This plugin does not prevent access to the admin dashboard; it merely provides t
 = () =
 * Fix: Show admin notices on plugin's setting page
 * New: Add basic unit tests
-* Change: Update plugin framework to 047
+* Change: Update plugin framework to 048
+    * 048:
+    * When resetting options, delete the option rather than setting it with default values
+    * Prevent double "Settings reset" admin notice upon settings reset
     * 047:
     * Don't save default setting values to database on install
     * Change "Cheatin', huh?" error messages to "Something went wrong.", consistent with WP core
