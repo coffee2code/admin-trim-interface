@@ -6,7 +6,7 @@ License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Requires at least: 4.7
 Tested up to: 4.9
-Stable tag: 3.1
+Stable tag: 3.2
 
 Customize the WordPress admin pages by selectively removing interface elements on a per-user basis.
 
@@ -63,7 +63,7 @@ This plugin does not prevent access to the admin dashboard; it merely provides t
 
 == Changelog ==
 
-= () =
+= 3.2 (2018-06-15) =
 * Fix: Show admin notices on plugin's setting page
 * New: Add basic unit tests
 * Change: Update plugin framework to 048
@@ -273,6 +273,9 @@ Details:
 
 
 == Upgrade Notice ==
+
+= 3.2 =
+Minor update: improved responsiveness of settings page; fixed to show admin notices on settings page; added unit tests; updated plugin framework to v048; compatibility is now WP 4.7-4.9; updated copyright date (2018); added README.md; and more.
 
 = 3.1 =
 Minor update: improved support for localization; verified compatibility through WP 4.4; updated copyright date (2016)
