@@ -190,6 +190,7 @@ final class c2c_AdminTrimInterface extends c2c_AdminTrimInterface_Plugin_047 {
 		add_filter( 'contextual_help',                         array( $this, 'clear_contextual_help' ), 1000 );
 		add_filter( 'admin_bar_menu',                          array( $this, 'admin_bar_menu' ), 5 );
 		add_action( 'admin_head',                              array( $this, 'hide_help_tabs' ) );
+		add_action( 'admin_notices',                           array( $this, 'show_admin_notices' ) );
 		add_filter( 'explain_nonce_'.$this->nonce_field,       array( $this, 'explain_nonce' ) );
 		add_action( $this->get_hook( 'before_settings_form' ), array( $this, 'show_legend_image' ) );
 	}
@@ -209,6 +210,23 @@ final class c2c_AdminTrimInterface extends c2c_AdminTrimInterface_Plugin_047 {
 		if ( $options['hide_footer_version'] ) {
 			remove_filter( 'update_footer', 'core_update_footer' );
 		}
+	}
+
+	/**
+	 * Shows settings admin notices.
+	 *
+	 * Settings notices are only shown for admin pages listed under Settings.
+	 * This plugin has its settings page under Appearance.
+	 *
+	 * @since 3.2
+	 */
+	public function show_admin_notices() {
+		// Bail if not on the plugin setting page.
+		if ( $this->options_page !== get_current_screen()->id ) {
+			return;
+		}
+
+		settings_errors();
 	}
 
 	/**
