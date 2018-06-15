@@ -2,7 +2,7 @@
 /**
  * @package C2C_Plugins
  * @author  Scott Reilly
- * @version 047
+ * @version 048
  */
 /*
 Basis for other plugins.
@@ -31,9 +31,9 @@ Compatible with WordPress 4.7 through 4.9+.
 
 defined( 'ABSPATH' ) or die();
 
-if ( ! class_exists( 'c2c_AdminTrimInterface_Plugin_047' ) ) :
+if ( ! class_exists( 'c2c_AdminTrimInterface_Plugin_048' ) ) :
 
-abstract class c2c_AdminTrimInterface_Plugin_047 {
+abstract class c2c_AdminTrimInterface_Plugin_048 {
 	protected $plugin_css_version = '009';
 	protected $options            = array();
 	protected $options_from_db    = '';
@@ -65,7 +65,7 @@ abstract class c2c_AdminTrimInterface_Plugin_047 {
 	 * @since 040
 	 */
 	public function c2c_plugin_version() {
-		return '047';
+		return '048';
 	}
 
 	/**
@@ -351,14 +351,8 @@ abstract class c2c_AdminTrimInterface_Plugin_047 {
 	public function reset_options() {
 		$this->reset_caches();
 
-		// If a setting has been saved to the database.
-		if ( $option = get_option( $this->admin_options_name ) ) {
-			// Unset the options (so that in get_options() the defaults are used).
-			foreach ( $this->get_option_names() as $opt ) {
-				unset( $this->options[ $opt ] );
-			}
-			update_option( $this->admin_options_name, $this->options );
-		}
+		// Delete the setting from the database.
+		delete_option( $this->admin_options_name );
 
 		$this->options = $this->get_options( false );
 
@@ -384,6 +378,7 @@ abstract class c2c_AdminTrimInterface_Plugin_047 {
 		if ( isset( $_POST['Reset'] ) ) {
 			$options = $this->reset_options();
 			add_settings_error( 'general', 'settings_reset', __( 'Settings reset.', 'admin-trim-interface' ), 'updated' );
+			unset( $_POST['Reset'] );
 		} else {
 			// Start with the existing options, then start overwriting their potential override value. (This prevents
 			// unscrupulous addition of fields by the user)
