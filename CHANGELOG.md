@@ -5,6 +5,7 @@
 * Change: Note compatibility through WP 5.1+
 * Change: Update copyright date (2019)
 * Change: Update License URI to be HTTPS
+* Change: Split paragraph in README.md's "Support" section into two
 
 ## 3.2 _(2018-06-15)_
 * Fix: Show admin notices on plugin's setting page
