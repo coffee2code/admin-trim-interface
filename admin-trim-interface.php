@@ -440,6 +440,6 @@ HTML;
 	}
 } // end c2c_AdminTrimInterface
 
-c2c_AdminTrimInterface::get_instance();
+add_action( 'plugins_loaded', array( 'c2c_AdminTrimInterface', 'get_instance' ) );
 
 endif; // end if !class_exists()

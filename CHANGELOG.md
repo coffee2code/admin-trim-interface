@@ -1,6 +1,7 @@
 # Changelog
 
 ## _(in-progress)_
+* Change: Initialize plugin on `plugins_loaded` action instead of on load
 * Change: Update plugin framework to 049
     * 049:
     * Correct last arg in call to `add_settings_field()` to be an array
