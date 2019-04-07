@@ -5,7 +5,7 @@ Tags: admin, interface, minimal, customize, coffee2code
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 Requires at least: 4.7
-Tested up to: 4.9
+Tested up to: 5.1
 Stable tag: 3.2
 
 Customize the WordPress admin pages by selectively removing interface elements on a per-user basis.
