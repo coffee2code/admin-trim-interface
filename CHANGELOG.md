@@ -2,6 +2,7 @@
 
 ## _(in-progress)_
 * New: Add CHANGELOG.md file and move all but most recent changelog entries into it
+* Change: Update License URI to be HTTPS
 
 ## 3.2 _(2018-06-15)_
 * Fix: Show admin notices on plugin's setting page
