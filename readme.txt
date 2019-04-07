@@ -125,7 +125,7 @@ Highlights:
 Details:
 
 * Change: Update plugin framework to 040:
-    * Change class name to c2c_AddAdminCSS_Plugin_040 to be plugin-specific.
+    * Change class name to c2c_AdminTrimInterface_Plugin_040 to be plugin-specific.
     * Set textdomain using a string instead of a variable.
     * Don't load textdomain from file.
     * Change admin page header from 'h2' to 'h1' tag.
