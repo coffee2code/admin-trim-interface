@@ -93,7 +93,7 @@ class Admin_Trim_Interface_Test extends WP_UnitTestCase {
 	}
 
 	public function test_get_version() {
-		$this->assertEquals( '3.2', c2c_AdminTrimInterface::get_instance()->version() );
+		$this->assertEquals( '3.3', c2c_AdminTrimInterface::get_instance()->version() );
 	}
 
 	public function test_instance_object_is_returned() {

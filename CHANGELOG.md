@@ -1,6 +1,6 @@
 # Changelog
 
-## _(in-progress)_
+## 3.3 _(2019-04-06)_
 * Change: Initialize plugin on `plugins_loaded` action instead of on load
 * Change: Update plugin framework to 049
     * 049:

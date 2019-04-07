@@ -6,7 +6,7 @@ License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 Requires at least: 4.7
 Tested up to: 5.1
-Stable tag: 3.2
+Stable tag: 3.3
 
 Customize the WordPress admin pages by selectively removing interface elements on a per-user basis.
 
@@ -62,6 +62,22 @@ This plugin does not prevent access to the admin dashboard; it merely provides t
 
 
 == Changelog ==
+
+= 3.3 (2019-04-06) =
+* Change: Initialize plugin on `plugins_loaded` action instead of on load
+* Change: Update plugin framework to 049
+    * 049:
+    * Correct last arg in call to `add_settings_field()` to be an array
+    * Wrap help text for settings in `label` instead of `p`
+    * Only use `label` for help text for checkboxes, otherwise use `p`
+    * Ensure a `textarea` displays as a block to prevent orphaning of subsequent help text
+    * Note compatibility through WP 5.1+
+    * Update copyright date (2019)
+* New: Add CHANGELOG.md file and move all but most recent changelog entries into it
+* Change: Note compatibility through WP 5.1+
+* Change: Update copyright date (2019)
+* Change: Update License URI to be HTTPS
+* Change: Split paragraph in README.md's "Support" section into two
 
 = 3.2 (2018-06-15) =
 * Fix: Show admin notices on plugin's setting page
@@ -143,6 +159,9 @@ _Full changelog is available in [CHANGELOG.md](https://github.com/coffee2code/ad
 
 
 == Upgrade Notice ==
+
+= 3.3 =
+Minor update: tweaked plugin initialization, updated plugin framework to v049, noted compatibility through WP 5.1+, created CHANGELOG.md to store historical changelog outside of readme.txt, and updated copyright date (2019).
 
 = 3.2 =
 Minor update: improved responsiveness of settings page; fixed to show admin notices on settings page; added unit tests; updated plugin framework to v048; compatibility is now WP 4.7-4.9; updated copyright date (2018); added README.md; and more.
