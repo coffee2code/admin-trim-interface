@@ -1,6 +1,14 @@
 # Changelog
 
 ## _(in-progress)_
+* Change: Update plugin framework to 049
+    * 049:
+    * Correct last arg in call to `add_settings_field()` to be an array
+    * Wrap help text for settings in `label` instead of `p`
+    * Only use `label` for help text for checkboxes, otherwise use `p`
+    * Ensure a `textarea` displays as a block to prevent orphaning of subsequent help text
+    * Note compatibility through WP 5.1+
+    * Update copyright date (2019)
 * New: Add CHANGELOG.md file and move all but most recent changelog entries into it
 * Change: Note compatibility through WP 5.1+
 * Change: Update copyright date (2019)
