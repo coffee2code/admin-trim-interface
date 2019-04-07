@@ -116,7 +116,7 @@ final class c2c_AdminTrimInterface extends c2c_AdminTrimInterface_Plugin_049 {
 	 */
 	public function load_config() {
 		$this->name      = __( 'Admin Trim Interface', 'admin-trim-interface' );
-		$this->menu_name = __( 'Admin Trim Interface', 'admin-trim-interface' );
+		$this->menu_name = $this->name;
 
 		$this->config = array(
 			'legend_image' => array(
