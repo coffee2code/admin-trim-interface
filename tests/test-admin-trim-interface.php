@@ -100,6 +100,10 @@ class Admin_Trim_Interface_Test extends WP_UnitTestCase {
 		$this->assertTrue( is_a( c2c_AdminTrimInterface::get_instance(), 'c2c_AdminTrimInterface' ) );
 	}
 
+	public function test_hooks_plugins_loaded() {
+		$this->assertEquals( 10, has_action( 'plugins_loaded', array( 'c2c_AdminTrimInterface', 'get_instance' ) ) );
+	}
+
 	/**
 	 * @dataProvider get_default_hooks
 	 */
