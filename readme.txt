@@ -6,7 +6,7 @@ License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 Requires at least: 4.7
 Tested up to: 5.3
-Stable tag: 3.3
+Stable tag: 3.3.1
 
 Customize the WordPress admin pages by selectively removing interface elements on a per-user basis.
 
@@ -62,6 +62,13 @@ This plugin does not prevent access to the admin dashboard; it merely provides t
 
 
 == Changelog ==
+
+= 3.3.1 (2019-12-16) =
+* Unit tests:
+    * Change: Update unit test install script and bootstrap to use latest WP unit test repo
+    * New: Add test that plugin initializes itself on `plugins_loaded`
+* Change: Note compatibility through WP 5.3+
+* Change: Update copyright date (2020)
 
 = 3.3 (2019-04-06) =
 * Change: Initialize plugin on `plugins_loaded` action instead of on load
@@ -133,32 +140,13 @@ This plugin does not prevent access to the admin dashboard; it merely provides t
 * Change: Update installation instruction to prefer built-in installer over .zip file
 * Change: Fix changelog entry for v3.1 for proper rendering in Plugin Directory
 
-= 3.1 (2016-01-14) =
-Highlights:
-
-* This release adds support for language packs and has many minor behind-the-scenes changes.
-
-Details:
-
-* Change: Update plugin framework to 040:
-    * Change class name to c2c_AdminTrimInterface_Plugin_040 to be plugin-specific.
-    * Set textdomain using a string instead of a variable.
-    * Don't load textdomain from file.
-    * Change admin page header from 'h2' to 'h1' tag.
-    * Add `c2c_plugin_version()`.
-    * Formatting improvements to inline docs.
-* Change: Add support for language packs:
-    * Set textdomain using a string instead of a variable.
-    * Remove .pot file and /lang subdirectory.
-* Change: Declare class as final.
-* Add: Create empty index.php to prevent files from being listed if web server has enabled directory listings.
-* Change: Note compatibility through WP 4.4+.
-* Change: Update copyright date (2016).
-
 _Full changelog is available in [CHANGELOG.md](https://github.com/coffee2code/admin-trim-interface/blob/master/CHANGELOG.md)._
 
 
 == Upgrade Notice ==
+
+= 3.3.1 =
+Trivial update: modernized unit tests and noted compatibility through WP 5.3+
 
 = 3.3 =
 Minor update: tweaked plugin initialization, updated plugin framework to v049, noted compatibility through WP 5.1+, created CHANGELOG.md to store historical changelog outside of readme.txt, and updated copyright date (2019).

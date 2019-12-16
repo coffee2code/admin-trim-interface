@@ -1,7 +1,7 @@
 <?php
 /**
  * Plugin Name: Admin Trim Interface
- * Version:     3.3
+ * Version:     3.3.1
  * Plugin URI:  http://coffee2code.com/wp-plugins/admin-trim-interface/
  * Author:      Scott Reilly
  * Author URI:  http://coffee2code.com/
@@ -18,14 +18,14 @@
  *
  * @package Admin_Trim_Interface
  * @author  Scott Reilly
- * @version 3.3
+ * @version 3.3.1
  */
 
 /*
  * TODO:
  * - Options to remove other admin bar icons: my sites
- * - Options to remvoe other admin bar nodes: udpates, comments, new content, search (front-end)
- * - Add unit tests
+ * - Options to remove other admin bar nodes: udpates, comments, new content, search (front-end)
+ * - Add more unit tests
  */
 
 /*
@@ -86,7 +86,7 @@ final class c2c_AdminTrimInterface extends c2c_AdminTrimInterface_Plugin_049 {
 	 * Constructor
 	 */
 	protected function __construct() {
-		parent::__construct( '3.3', 'admin-trim-interface', 'c2c', __FILE__, array( 'settings_page' => 'themes' ) );
+		parent::__construct( '3.3.1', 'admin-trim-interface', 'c2c', __FILE__, array( 'settings_page' => 'themes' ) );
 		register_activation_hook( __FILE__, array( __CLASS__, 'activation' ) );
 		self::$instance = $this;
 	}
