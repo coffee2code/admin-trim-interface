@@ -1,6 +1,8 @@
 # Changelog
 
 ## _(in-progress)_
+* Unit tests:
+    * Change: Update unit test install script and bootstrap to use latest WP unit test repo
 * Change: Note compatibility through WP 5.3+
 * Change: Update copyright date (2020)
 
