@@ -10,7 +10,7 @@
  * License URI: https://www.gnu.org/licenses/gpl-2.0.html
  * Description: Customize the WordPress admin pages by selectively removing interface elements on a per-user basis.
  *
- * Compatible with WordPress 4.7 through 5.3+.
+ * Compatible with WordPress 4.7 through 5.4+.
  *
  * =>> Read the accompanying readme.txt file for instructions and documentation.
  * =>> Also, visit the plugin's homepage for additional information and updates.
