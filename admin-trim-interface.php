@@ -2,9 +2,9 @@
 /**
  * Plugin Name: Admin Trim Interface
  * Version:     3.3.1
- * Plugin URI:  http://coffee2code.com/wp-plugins/admin-trim-interface/
+ * Plugin URI:  https://coffee2code.com/wp-plugins/admin-trim-interface/
  * Author:      Scott Reilly
- * Author URI:  http://coffee2code.com/
+ * Author URI:  https://coffee2code.com/
  * Text Domain: admin-trim-interface
  * License:     GPLv2 or later
  * License URI: https://www.gnu.org/licenses/gpl-2.0.html

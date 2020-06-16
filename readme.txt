@@ -31,7 +31,7 @@ Each admin interface element is individually selected for removal. The elements 
 
 Note: These settings are global and will affect all users who are able to visit the admin pages.
 
-Links: [Plugin Homepage](http://coffee2code.com/wp-plugins/admin-trim-interface/) | [Plugin Directory Page](https://wordpress.org/plugins/admin-trim-interface/) | [GitHub](https://github.com/coffee2code/admin-trim-interface/) | [Author Homepage](http://coffee2code.com)
+Links: [Plugin Homepage](https://coffee2code.com/wp-plugins/admin-trim-interface/) | [Plugin Directory Page](https://wordpress.org/plugins/admin-trim-interface/) | [GitHub](https://github.com/coffee2code/admin-trim-interface/) | [Author Homepage](https://coffee2code.com)
 
 
 == Installation ==
