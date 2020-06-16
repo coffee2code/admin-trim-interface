@@ -22,13 +22,6 @@
  */
 
 /*
- * TODO:
- * - Options to remove other admin bar icons: my sites
- * - Options to remove other admin bar nodes: udpates, comments, new content, search (front-end)
- * - Add more unit tests
- */
-
-/*
 	Copyright (c) 2009-2020 by Scott Reilly (aka coffee2code)
 
 	This program is free software; you can redistribute it and/or
