@@ -183,7 +183,6 @@ final class c2c_AdminTrimInterface extends c2c_AdminTrimInterface_Plugin_050 {
 		add_action( 'admin_init',                              array( $this, 'admin_init' ) );
 		add_action( 'admin_enqueue_scripts',                   array( $this, 'add_css' ) );
 		add_action( 'wp_enqueue_scripts',                      array( $this, 'add_css' ) );
-		add_filter( 'contextual_help',                         array( $this, 'clear_contextual_help' ), 1000 );
 		add_filter( 'admin_bar_menu',                          array( $this, 'admin_bar_menu' ), 5 );
 		add_action( 'admin_head',                              array( $this, 'hide_help_tabs' ) );
 		add_action( 'admin_notices',                           array( $this, 'show_admin_notices' ) );
@@ -237,24 +236,6 @@ final class c2c_AdminTrimInterface extends c2c_AdminTrimInterface_Plugin_050 {
 			$screen = get_current_screen();
 			$screen->remove_help_tabs();
 		}
-	}
-
-	/**
-	 * Clears old-style contextual help defined via filter.
-	 *
-	 * @since 2.2
-	 *
-	 * @param string  $text The contextual help text.
-	 * @return string Empty string if help tab is being hidden.
-	 */
-	public function clear_contextual_help( $text ) {
-		$options = $this->get_options();
-
-		if ( $options['hide_help'] ) {
-			$text = '';
-		}
-
-		return $text;
 	}
 
 	/**

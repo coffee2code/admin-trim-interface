@@ -36,7 +36,6 @@ class Admin_Trim_Interface_Test extends WP_UnitTestCase {
 			array( 'action', 'admin_init',            'admin_init',            10 ),
 			array( 'action', 'admin_enqueue_scripts', 'add_css',               10 ),
 			array( 'action', 'wp_enqueue_scripts',    'add_css',               10 ),
-			array( 'filter', 'contextual_help',       'clear_contextual_help', 1000 ),
 			array( 'filter', 'admin_bar_menu',        'admin_bar_menu',        5 ),
 			array( 'action', 'admin_head',            'hide_help_tabs',        10 ),
 			array( 'filter', 'explain_nonce_'.c2c_AdminTrimInterface::get_instance()->nonce_field, 'explain_nonce', 10 ),
