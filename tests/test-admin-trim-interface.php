@@ -116,6 +116,10 @@ class Admin_Trim_Interface_Test extends WP_UnitTestCase {
 		}
 	}
 
+	public function test_setting_name() {
+		$this->assertEquals( 'c2c_admin_trim_interface', c2c_AdminTrimInterface::SETTING_NAME );
+	}
+
 	/**
 	 * @dataProvider get_settings_and_defaults
 	 */
