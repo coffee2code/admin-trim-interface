@@ -33,12 +33,14 @@ class Admin_Trim_Interface_Test extends WP_UnitTestCase {
 			array( 'action', '_network_admin_menu',   'hide_dashboard',        10 ),
 			array( 'action', '_user_admin_menu',      'hide_dashboard',        10 ),
 			array( 'action', '_admin_menu',           'hide_dashboard',        10 ),
-			array( 'action', 'admin_init',            'admin_init',            10 ),
 			array( 'action', 'admin_enqueue_scripts', 'add_css',               10 ),
 			array( 'action', 'wp_enqueue_scripts',    'add_css',               10 ),
 			array( 'filter', 'admin_bar_menu',        'admin_bar_menu',        5 ),
 			array( 'action', 'admin_head',            'hide_help_tabs',        10 ),
+			array( 'action', 'admin_notices',         'show_admin_notices',    10 ),
 			array( 'filter', 'explain_nonce_'.c2c_AdminTrimInterface::get_instance()->nonce_field, 'explain_nonce', 10 ),
+			// TODO: Use ::get_hook() when plugin base clase makes method public.
+			array( 'action', 'admin_trim_interface__custom_display_option', 'show_legend_image', 10 ),
 		);
 	}
 
