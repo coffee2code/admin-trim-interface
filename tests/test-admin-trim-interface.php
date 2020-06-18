@@ -160,6 +160,29 @@ class Admin_Trim_Interface_Test extends WP_UnitTestCase {
 	}
 
 	/*
+	 * show_admin_notices()
+	 */
+
+	public function test_show_admin_notices_does_not_show_when_not_on_settings_page() {
+		add_settings_error( 'foo', 'bar', 'Capital P dangit!', 'error' );
+		$path = 'themes.php?page=admin-trim-interface%2Fadmin-trim-interface.php';
+		set_current_screen( $path );
+
+		$this->expectOutputRegex( '~^$~', $this->obj->show_admin_notices() );
+	}
+
+	public function test_show_admin_notices_shows_when_not_on_settings_page() {
+		add_settings_error( 'foo', 'bar', 'Capital P dangit!', 'error' );
+
+		set_current_screen( 'themes.php?page=admin-trim-interface%2Fadmin-trim-interface.php' );
+		$this->obj->options_page = 'themesphppageadmin-trim-interface2fadmin-trim-interface';
+
+		$expected = "<div id='setting-error-bar' class='notice notice-error settings-error is-dismissible'> \n<p><strong>Capital P dangit!</strong></p></div> \n<div id='setting-error-bar' class='notice notice-error settings-error is-dismissible'> \n<p><strong>Capital P dangit!</strong></p></div> \n";
+
+		$this->expectOutputRegex( '~^' . preg_quote( $expected ) . '$~', $this->obj->show_admin_notices() );
+	}
+
+	/*
 	 * Setting handling
 	 */
 
