@@ -15,6 +15,7 @@
 * Unit tests:
     * New: Add tests for `admin_init()`
     * New: Add test for setting name
+    * Change: Store plugin instance in test object to simplify referencing it
     * Change: Update tests for default hooks, removing a duplicate and adding 2 that were missing
     * Change: Use HTTPS for link to WP SVN repository in bin script for configuring unit tests (and delete commented-out code)
 

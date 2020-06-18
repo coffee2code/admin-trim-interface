@@ -4,20 +4,25 @@ defined( 'ABSPATH' ) or die();
 
 class Admin_Trim_Interface_Test extends WP_UnitTestCase {
 
+	protected $obj;
+
 	public static function setUpBeforeClass() {
 		c2c_AdminTrimInterface::get_instance()->install();
 	}
 
 	public function setUp() {
 		parent::setUp();
-		c2c_AdminTrimInterface::get_instance()->reset_options();
+
+		$this->obj = c2c_AdminTrimInterface::get_instance();
+
+		$this->obj->reset_options();
 	}
 
 	public function tearDown() {
 		parent::tearDown();
 
 		// Reset options
-		c2c_AdminTrimInterface::get_instance()->reset_options();
+		$this->obj->reset_options();
 	}
 
 
@@ -67,10 +72,9 @@ class Admin_Trim_Interface_Test extends WP_UnitTestCase {
 
 
 	protected function set_option( $settings = array() ) {
-		$obj = c2c_AdminTrimInterface::get_instance();
-		$defaults = $obj->get_options();
+		$defaults = $this->obj->get_options();
 		$settings = wp_parse_args( (array) $settings, $defaults );
-		$obj->update_option( $settings, true );
+		$this->obj->update_option( $settings, true );
 	}
 
 
@@ -90,15 +94,15 @@ class Admin_Trim_Interface_Test extends WP_UnitTestCase {
 	}
 
 	public function test_plugin_framework_version() {
-		$this->assertEquals( '050', c2c_AdminTrimInterface::get_instance()->c2c_plugin_version() );
+		$this->assertEquals( '050', $this->obj->c2c_plugin_version() );
 	}
 
 	public function test_get_version() {
-		$this->assertEquals( '3.3.1', c2c_AdminTrimInterface::get_instance()->version() );
+		$this->assertEquals( '3.3.1', $this->obj->version() );
 	}
 
 	public function test_instance_object_is_returned() {
-		$this->assertTrue( is_a( c2c_AdminTrimInterface::get_instance(), 'c2c_AdminTrimInterface' ) );
+		$this->assertTrue( is_a( $this->obj, 'c2c_AdminTrimInterface' ) );
 	}
 
 	public function test_hooks_plugins_loaded() {
@@ -110,8 +114,8 @@ class Admin_Trim_Interface_Test extends WP_UnitTestCase {
 	 */
 	public function test_default_hooks( $hook_type, $hook, $function, $priority ) {
 		$prio = $hook_type === 'action' ?
-			has_action( $hook, array( c2c_AdminTrimInterface::get_instance(), $function ) ) :
-			has_filter( $hook, array( c2c_AdminTrimInterface::get_instance(), $function ) );
+			has_action( $hook, array( $this->obj, $function ) ) :
+			has_filter( $hook, array( $this->obj, $function ) );
 		$this->assertNotFalse( $prio );
 		if ( $priority ) {
 			$this->assertEquals( $priority, $prio );
@@ -126,7 +130,7 @@ class Admin_Trim_Interface_Test extends WP_UnitTestCase {
 	 * @dataProvider get_settings_and_defaults
 	 */
 	public function test_default_settings( $setting ) {
-		$options = c2c_AdminTrimInterface::get_instance()->get_options();
+		$options = $this->obj->get_options();
 
 		$this->assertFalse( $options[ $setting ] );
 	}
@@ -136,21 +140,21 @@ class Admin_Trim_Interface_Test extends WP_UnitTestCase {
 	 */
 
 	public function test_admin_init_hooks_admin_footer_text() {
-		c2c_AdminTrimInterface::get_instance()->update_option( array( 'hide_footer_left' => true ) );
+		$this->obj->update_option( array( 'hide_footer_left' => true ) );
 
 		$this->assertFalse( has_filter( 'admin_footer_text', '__return_false' ) );
 
-		c2c_AdminTrimInterface::get_instance()->admin_init();
+		$this->obj->admin_init();
 
 		$this->assertEquals( 10, has_filter( 'admin_footer_text', '__return_false' ) );
 	}
 
 	public function test_admin_init_hooks_update_footer() {
-		c2c_AdminTrimInterface::get_instance()->update_option( array( 'hide_footer_version' => true ) );
+		$this->obj->update_option( array( 'hide_footer_version' => true ) );
 
 		$this->assertEquals( 10, has_filter( 'update_footer', 'core_update_footer' ) );
 
-		c2c_AdminTrimInterface::get_instance()->admin_init();
+		$this->obj->admin_init();
 
 		$this->assertFalse( has_filter( 'update_footer', 'core_update_footer' ) );
 	}
@@ -162,14 +166,14 @@ class Admin_Trim_Interface_Test extends WP_UnitTestCase {
 	public function test_does_not_immediately_store_default_settings_in_db() {
 		$option_name = c2c_AdminTrimInterface::SETTING_NAME;
 		// Get the options just to see if they may get saved.
-		$options     = c2c_AdminTrimInterface::get_instance()->get_options();
+		$options     = $this->obj->get_options();
 
 		$this->assertFalse( get_option( $option_name ) );
 	}
 
 	public function test_uninstall_deletes_option() {
 		$option_name = c2c_AdminTrimInterface::SETTING_NAME;
-		$options     = c2c_AdminTrimInterface::get_instance()->get_options();
+		$options     = $this->obj->get_options();
 
 		// Explicitly set an option to ensure options get saved to the database.
 		$this->set_option( array( 'hide_wp_logo' => true ) );
