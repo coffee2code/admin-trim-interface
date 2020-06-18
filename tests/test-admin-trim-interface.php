@@ -132,6 +132,30 @@ class Admin_Trim_Interface_Test extends WP_UnitTestCase {
 	}
 
 	/*
+	 * admin_init()
+	 */
+
+	public function test_admin_init_hooks_admin_footer_text() {
+		c2c_AdminTrimInterface::get_instance()->update_option( array( 'hide_footer_left' => true ) );
+
+		$this->assertFalse( has_filter( 'admin_footer_text', '__return_false' ) );
+
+		c2c_AdminTrimInterface::get_instance()->admin_init();
+
+		$this->assertEquals( 10, has_filter( 'admin_footer_text', '__return_false' ) );
+	}
+
+	public function test_admin_init_hooks_update_footer() {
+		c2c_AdminTrimInterface::get_instance()->update_option( array( 'hide_footer_version' => true ) );
+
+		$this->assertEquals( 10, has_filter( 'update_footer', 'core_update_footer' ) );
+
+		c2c_AdminTrimInterface::get_instance()->admin_init();
+
+		$this->assertFalse( has_filter( 'update_footer', 'core_update_footer' ) );
+	}
+
+	/*
 	 * Setting handling
 	 */
 
