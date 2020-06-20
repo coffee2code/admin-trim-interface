@@ -186,6 +186,17 @@ class Admin_Trim_Interface_Test extends WP_UnitTestCase {
 	}
 
 	/*
+	 * explain_nonce()
+	 */
+
+	public function test_explain_nonce() {
+		$this->assertEquals(
+			'Your session has expired. Please log in to continue where you left off.',
+			$this->obj->explain_nonce( 'whatever' )
+		);
+	}
+
+	/*
 	 * Setting handling
 	 */
 
