@@ -6,6 +6,6 @@ The following list comprises ideas, suggestions, and known issues, all of which 
 
 * Options to remove other admin bar icons: my sites
 * Options to remove other admin bar nodes: udpates, comments, new content, search (front-end)
-* Add more unit tests
+* Add unit test coverage for `hide_help_tabs()`, `hide_dashboard()`, `admin_bar_menu()`, `add_css()`, `options_page_description()`
 
 Feel free to make your own suggestions or champion for something already on the list (via the [plugin's support forum on WordPress.org](https://wordpress.org/support/plugin/admin-trim-interface/) or on [GitHub](https://github.com/coffee2code/admin-trim-interface/) as an issue or PR).
