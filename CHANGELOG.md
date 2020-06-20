@@ -12,6 +12,7 @@
 * Change: Note compatibility through WP 5.4+
 * Change: Drop compatibility for version of WP older than 4.9
 * Change: Add missing text domain from a few string translation calls
+* Change: Remove unnecessary numbering of sole placeholder in string
 * Change: Update links to coffee2code.com to be HTTPS
 * Unit tests:
     * New: Add tests for `admin_init()`, `explain_nonce()`, `show_admin_notices()`

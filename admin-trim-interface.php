@@ -300,7 +300,7 @@ final class c2c_AdminTrimInterface extends c2c_AdminTrimInterface_Plugin_050 {
 		if ( $options['hide_howdy'] ) {
 			$howdy = $options['hide_username'] ? '' : $current_user->display_name;
 		} else {
-			$howdy = $options['hide_username'] ? __( 'Howdy', 'admin-trim-interface' ) : sprintf( __( 'Howdy, %1$s', 'admin-trim-interface' ), $current_user->display_name );
+			$howdy = $options['hide_username'] ? __( 'Howdy', 'admin-trim-interface' ) : sprintf( __( 'Howdy, %s', 'admin-trim-interface' ), $current_user->display_name );
 		}
 
 		$class = $avatar ? 'with-avatar' : '';
