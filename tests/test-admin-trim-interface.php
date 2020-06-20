@@ -112,10 +112,13 @@ class Admin_Trim_Interface_Test extends WP_UnitTestCase {
 	/**
 	 * @dataProvider get_default_hooks
 	 */
-	public function test_default_hooks( $hook_type, $hook, $function, $priority ) {
+	public function test_default_hooks( $hook_type, $hook, $function, $priority = 10, $class_method = true ) {
+		$callback = $class_method ? array( $this->obj, $function ) : $function;
+
 		$prio = $hook_type === 'action' ?
-			has_action( $hook, array( $this->obj, $function ) ) :
-			has_filter( $hook, array( $this->obj, $function ) );
+			has_action( $hook, $callback ) :
+			has_filter( $hook, $callback );
+
 		$this->assertNotFalse( $prio );
 		if ( $priority ) {
 			$this->assertEquals( $priority, $prio );
