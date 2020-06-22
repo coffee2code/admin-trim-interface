@@ -340,41 +340,37 @@ final class c2c_AdminTrimInterface extends c2c_AdminTrimInterface_Plugin_050 {
 	public function add_css() {
 		$options   = $this->get_options();
 		$css       = array();
-		$extra_css = '';
+		$extra_css = array();
 
 		// Don't bother outputting CSS related to admin bar if it isn't showing.
 		if ( is_admin_bar_showing() ) {
 
 			// Remove the sites icon from admin bar.
 			if ( $options['hide_site_icon'] ) {
-				if ( is_admin() ){
-					$extra_css .= '.wp-admin #wpwrap #wpadminbar #wp-admin-bar-my-sites > .ab-item::before { content: ""; }' . "\n";
-				} else {
-					$extra_css .= 'body #wpadminbar #wp-admin-bar-my-sites > .ab-item::before { content: ""; }' . "\n";
-				}
+				$rule = is_admin() ? '.wp-admin #wpwrap' : 'body';
+				$rule .= ' #wpadminbar #wp-admin-bar-my-sites > .ab-item::before { content: ""; }';
+				$extra_css[] = $rule;
 			}
 
 			// Remove the home icon from admin bar.
 			if ( $options['hide_home_icon'] ) {
-				if ( is_admin() ){
-					$extra_css .= '.wp-admin #wpwrap #wpadminbar #wp-admin-bar-site-name > .ab-item::before { content: ""; }' . "\n";
-				} else {
-					$extra_css .= 'body #wpadminbar #wp-admin-bar-site-name > .ab-item::before { content: ""; }' . "\n";
-				}
+				$rule = is_admin() ? '.wp-admin #wpwrap' : 'body';
+				$rule .= ' #wpadminbar #wp-admin-bar-site-name > .ab-item::before { content: ""; }';
+				$extra_css[] = $rule;
 			}
 
 			// Remove the user icon from admin bar.
 			if ( $options['hide_avatar'] ) {
 				$css[] = 'body #wp-admin-bar-user-info .avatar';
-				$extra_css .= 'body #wp-admin-bar-my-account > .ab-item::before { content: ""; }' . "\n";
+				$extra_css[] = 'body #wp-admin-bar-my-account > .ab-item::before { content: ""; }';
 			}
 
 		}
 
 		// Style the legend image on the plugin's setting page.
 		if ( is_admin() && ( $this->options_page === get_current_screen()->id ) ) {
-			$extra_css .= <<<CSS
-	.c2c-ati-image { position: absolute; left: 400px; }
+			$extra_css[] = <<<CSS
+.c2c-ati-image { position: absolute; left: 400px; }
 	.appearance_page_admin-trim-interface-admin-trim-interface .form-table th { width: 300px; }
 	.appearance_page_admin-trim-interface-admin-trim-interface .c2c-form .form-table tr:first-child { position: absolute; }
 	@media screen and (max-width: 782px) {
@@ -387,7 +383,12 @@ CSS;
 		if ( $css || $extra_css ) {
 			$css = implode( ', ', $css );
 			if ( $css ) {
-				$css = "$css { display: none; }";
+				$css = "\t$css { display: none; }";
+			}
+
+			$extra_css = implode( "\n\t", $extra_css );
+			if ( $extra_css ) {
+				$extra_css = "\t" . rtrim( $extra_css );
 			}
 
 			$type_attr = current_theme_supports( 'html5', 'style' ) ? '' : ' type="text/css"';

@@ -12,6 +12,7 @@
     * Note compatibility through WP 5.4+
     * Drop compatibility with version of WP older than 4.9
 * New: Add TODO.md and move existing TODO list from top of main plugin file into it
+* Change: Refactor handling of dynamic CSS rules and ensure they output properly indented
 * Change: Adjust some CSS formatting (add second colon for `::before` and spaces around `>`)
 * Change: Adjust output spacing for CSS
 * Change: Note compatibility through WP 5.4+
