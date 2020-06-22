@@ -241,7 +241,7 @@ class Admin_Trim_Interface_Test extends WP_UnitTestCase {
 		$this->expectOutputRegex( '~^' . preg_quote( $expected ) . '$~', $this->obj->add_css() );
 	}
 
-	public function test_add_css_with_everything_enabled_and_admin_but_not_on_plugin_settings_page() {
+	public function test_add_css_with_everything_enabled_and_admin_but_not_on_plugin_settings_page( $attr = '' ) {
 		$this->set_current_screen( 'plugins.php' );
 		$this->set_option( array(
 			'hide_avatar'    => true,
@@ -249,14 +249,20 @@ class Admin_Trim_Interface_Test extends WP_UnitTestCase {
 			'hide_site_icon' => true,
 		) );
 
-		$expected = '<style>
+		$expected = "<style{$attr}>
 	body #wp-admin-bar-user-info .avatar { display: none; }
-	.wp-admin #wpwrap #wpadminbar #wp-admin-bar-my-sites > .ab-item::before { content: ""; }
-	.wp-admin #wpwrap #wpadminbar #wp-admin-bar-site-name > .ab-item::before { content: ""; }
-	body #wp-admin-bar-my-account > .ab-item::before { content: ""; }
-</style>' . "\n";
+	.wp-admin #wpwrap #wpadminbar #wp-admin-bar-my-sites > .ab-item::before { content: \"\"; }
+	.wp-admin #wpwrap #wpadminbar #wp-admin-bar-site-name > .ab-item::before { content: \"\"; }
+	body #wp-admin-bar-my-account > .ab-item::before { content: \"\"; }
+</style>\n";
 
 		$this->expectOutputRegex( '~^' . preg_quote( $expected ) . '$~', $this->obj->add_css() );
+	}
+
+	public function test_add_css_with_no_html5_support_and_everything_enabled_and_admin_but_not_on_plugin_settings_page() {
+		remove_theme_support( 'html5', 'script' );
+
+		$this->test_add_css_with_everything_enabled_and_admin_but_not_on_plugin_settings_page( ' type="text/css"' );
 	}
 
 	public function test_add_css_with_everything_enabled_and_on_plugin_settings_page() {
