@@ -19,7 +19,7 @@
 * Change: Remove unnecessary numbering of sole placeholder in string
 * Change: Update links to coffee2code.com to be HTTPS
 * Unit tests:
-    * New: Add tests for `admin_init()`, `explain_nonce()`, `show_admin_notices()`, `show_legend_image()`
+    * New: Add tests for `add_css()`, `admin_init()`, `explain_nonce()`, `show_admin_notices()`, `show_legend_image()`
     * New: Add test for setting name
     * New: Add helper `set_current_screen()` for setting the current screen, defaulting to plugin's setting page
     * Change: Store plugin instance in test object to simplify referencing it

@@ -13,6 +13,8 @@ class Admin_Trim_Interface_Test extends WP_UnitTestCase {
 	public function setUp() {
 		parent::setUp();
 
+		add_theme_support( 'html5', array( 'script', 'style' ) );
+
 		$this->obj = c2c_AdminTrimInterface::get_instance();
 
 		$this->obj->reset_options();
@@ -25,6 +27,7 @@ class Admin_Trim_Interface_Test extends WP_UnitTestCase {
 		$this->obj->reset_options();
 
 		unset( $GLOBALS['current_screen'] );
+		unset( $GLOBALS['show_admin_bar'] );
 	}
 
 
@@ -204,6 +207,86 @@ class Admin_Trim_Interface_Test extends WP_UnitTestCase {
 			'Your session has expired. Please log in to continue where you left off.',
 			$this->obj->explain_nonce( 'whatever' )
 		);
+	}
+
+	/*
+	 * add_css()
+	 */
+
+	public function test_add_css_with_everything_enabled_and_but_no_admin_bar_showing() {
+		$this->set_option( array(
+			'hide_avatar'    => true,
+			'hide_home_icon' => true,
+			'hide_site_icon' => true,
+		) );
+
+		$this->expectOutputRegex( '~^$~', $this->obj->add_css() );
+	}
+
+	public function test_add_css_with_everything_enabled_and_non_admin_and_admin_bar_showing() {
+		$GLOBALS['show_admin_bar'] = true;
+		$this->set_option( array(
+			'hide_avatar'    => true,
+			'hide_home_icon' => true,
+			'hide_site_icon' => true,
+		) );
+
+		$expected = '<style>
+body #wp-admin-bar-user-info .avatar { display:none; }
+
+body #wpadminbar #wp-admin-bar-my-sites > .ab-item::before { content: ""; }
+body #wpadminbar #wp-admin-bar-site-name>.ab-item:before { content: ""; }
+body #wp-admin-bar-my-account>.ab-item:before { content: ""; }
+
+</style>' . "\n";
+
+		$this->expectOutputRegex( '~^' . preg_quote( $expected ) . '$~', $this->obj->add_css() );
+	}
+
+	public function test_add_css_with_everything_enabled_and_admin_but_not_on_plugin_settings_page() {
+		$this->set_current_screen( 'plugins.php' );
+		$this->set_option( array(
+			'hide_avatar'    => true,
+			'hide_home_icon' => true,
+			'hide_site_icon' => true,
+		) );
+
+		$expected = '<style>
+body #wp-admin-bar-user-info .avatar { display:none; }
+
+.wp-admin #wpwrap #wpadminbar #wp-admin-bar-my-sites > .ab-item::before { content: ""; }
+.wp-admin #wpwrap #wpadminbar #wp-admin-bar-site-name>.ab-item:before { content: ""; }
+body #wp-admin-bar-my-account>.ab-item:before { content: ""; }
+
+</style>' . "\n";
+
+		$this->expectOutputRegex( '~^' . preg_quote( $expected ) . '$~', $this->obj->add_css() );
+	}
+
+	public function test_add_css_with_everything_enabled_and_on_plugin_settings_page() {
+		$this->set_current_screen();
+		$this->set_option( array(
+			'hide_avatar'    => true,
+			'hide_home_icon' => true,
+			'hide_site_icon' => true,
+		) );
+
+		$expected = '<style>
+body #wp-admin-bar-user-info .avatar { display:none; }
+
+.wp-admin #wpwrap #wpadminbar #wp-admin-bar-my-sites > .ab-item::before { content: ""; }
+.wp-admin #wpwrap #wpadminbar #wp-admin-bar-site-name>.ab-item:before { content: ""; }
+body #wp-admin-bar-my-account>.ab-item:before { content: ""; }
+	.c2c-ati-image { position: absolute; left: 400px; }
+	.appearance_page_admin-trim-interface-admin-trim-interface .form-table th { width: 300px; }
+	.appearance_page_admin-trim-interface-admin-trim-interface .c2c-form .form-table tr:first-child { position: absolute; }
+	@media screen and (max-width: 782px) {
+		.appearance_page_admin-trim-interface-admin-trim-interface .c2c-form .form-table tr:first-child { position: initial; }
+		.c2c-ati-image { position: initial; left: 0; }
+	}
+</style>' . "\n";
+
+		$this->expectOutputRegex( '~^' . preg_quote( $expected ) . '$~', $this->obj->add_css() );
 	}
 
 	/*
