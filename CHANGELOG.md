@@ -1,6 +1,7 @@
 # Changelog
 
 ## _(in-progress)_
+* Change: Prevent output of plugin-page specific CSS elsewhere
 * Change: Discontinue handling for contextual help text added via deprecated filter `contextual_help`
 * Change: Update plugin framework to 050
     * Allow a hash entry to literally have '0' as a value without being entirely omitted when saved

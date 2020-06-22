@@ -357,7 +357,7 @@ final class c2c_AdminTrimInterface extends c2c_AdminTrimInterface_Plugin_050 {
 		}
 
 		// Style the legend image on the plugin's setting page.
-		if ( is_admin() ) {
+		if ( is_admin() && ( $this->options_page === get_current_screen()->id ) ) {
 			$extra_css .= <<<CSS
 	.c2c-ati-image { position: absolute; left: 400px; }
 	.appearance_page_admin-trim-interface-admin-trim-interface .form-table th { width: 300px; }
