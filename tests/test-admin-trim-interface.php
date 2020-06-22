@@ -232,11 +232,10 @@ class Admin_Trim_Interface_Test extends WP_UnitTestCase {
 		) );
 
 		$expected = '<style>
-body #wp-admin-bar-user-info .avatar { display:none; }
-
+body #wp-admin-bar-user-info .avatar { display: none; }
 body #wpadminbar #wp-admin-bar-my-sites > .ab-item::before { content: ""; }
-body #wpadminbar #wp-admin-bar-site-name>.ab-item:before { content: ""; }
-body #wp-admin-bar-my-account>.ab-item:before { content: ""; }
+body #wpadminbar #wp-admin-bar-site-name > .ab-item::before { content: ""; }
+body #wp-admin-bar-my-account > .ab-item::before { content: ""; }
 
 </style>' . "\n";
 
@@ -252,11 +251,10 @@ body #wp-admin-bar-my-account>.ab-item:before { content: ""; }
 		) );
 
 		$expected = '<style>
-body #wp-admin-bar-user-info .avatar { display:none; }
-
+body #wp-admin-bar-user-info .avatar { display: none; }
 .wp-admin #wpwrap #wpadminbar #wp-admin-bar-my-sites > .ab-item::before { content: ""; }
-.wp-admin #wpwrap #wpadminbar #wp-admin-bar-site-name>.ab-item:before { content: ""; }
-body #wp-admin-bar-my-account>.ab-item:before { content: ""; }
+.wp-admin #wpwrap #wpadminbar #wp-admin-bar-site-name > .ab-item::before { content: ""; }
+body #wp-admin-bar-my-account > .ab-item::before { content: ""; }
 
 </style>' . "\n";
 
@@ -272,11 +270,10 @@ body #wp-admin-bar-my-account>.ab-item:before { content: ""; }
 		) );
 
 		$expected = '<style>
-body #wp-admin-bar-user-info .avatar { display:none; }
-
+body #wp-admin-bar-user-info .avatar { display: none; }
 .wp-admin #wpwrap #wpadminbar #wp-admin-bar-my-sites > .ab-item::before { content: ""; }
-.wp-admin #wpwrap #wpadminbar #wp-admin-bar-site-name>.ab-item:before { content: ""; }
-body #wp-admin-bar-my-account>.ab-item:before { content: ""; }
+.wp-admin #wpwrap #wpadminbar #wp-admin-bar-site-name > .ab-item::before { content: ""; }
+body #wp-admin-bar-my-account > .ab-item::before { content: ""; }
 	.c2c-ati-image { position: absolute; left: 400px; }
 	.appearance_page_admin-trim-interface-admin-trim-interface .form-table th { width: 300px; }
 	.appearance_page_admin-trim-interface-admin-trim-interface .c2c-form .form-table tr:first-child { position: absolute; }

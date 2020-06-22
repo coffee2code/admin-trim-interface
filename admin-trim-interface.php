@@ -357,16 +357,16 @@ final class c2c_AdminTrimInterface extends c2c_AdminTrimInterface_Plugin_050 {
 			// Remove the home icon from admin bar.
 			if ( $options['hide_home_icon'] ) {
 				if ( is_admin() ){
-					$extra_css .= '.wp-admin #wpwrap #wpadminbar #wp-admin-bar-site-name>.ab-item:before { content: ""; }' . "\n";
+					$extra_css .= '.wp-admin #wpwrap #wpadminbar #wp-admin-bar-site-name > .ab-item::before { content: ""; }' . "\n";
 				} else {
-					$extra_css .= 'body #wpadminbar #wp-admin-bar-site-name>.ab-item:before { content: ""; }' . "\n";
+					$extra_css .= 'body #wpadminbar #wp-admin-bar-site-name > .ab-item::before { content: ""; }' . "\n";
 				}
 			}
 
 			// Remove the user icon from admin bar.
 			if ( $options['hide_avatar'] ) {
 				$css[] = 'body #wp-admin-bar-user-info .avatar';
-				$extra_css .= 'body #wp-admin-bar-my-account>.ab-item:before { content: ""; }' . "\n";
+				$extra_css .= 'body #wp-admin-bar-my-account > .ab-item::before { content: ""; }' . "\n";
 			}
 
 		}
@@ -387,7 +387,7 @@ CSS;
 		if ( $css || $extra_css ) {
 			$css = implode( ', ', $css );
 			if ( $css ) {
-				$css = "$css { display:none; }\n";
+				$css = "$css { display: none; }";
 			}
 
 			$type_attr = current_theme_supports( 'html5', 'style' ) ? '' : ' type="text/css"';
