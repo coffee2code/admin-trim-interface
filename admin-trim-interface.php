@@ -359,14 +359,13 @@ final class c2c_AdminTrimInterface extends c2c_AdminTrimInterface_Plugin_050 {
 		// Style the legend image on the plugin's setting page.
 		if ( is_admin() ) {
 			$extra_css .= <<<CSS
-				.c2c-ati-image { position: absolute; left: 400px; }
-				.appearance_page_admin-trim-interface-admin-trim-interface .form-table th { width: 300px; }
-				.appearance_page_admin-trim-interface-admin-trim-interface .c2c-form .form-table tr:first-child { position: absolute; }
-				@media screen and (max-width: 782px) {
-					.appearance_page_admin-trim-interface-admin-trim-interface .c2c-form .form-table tr:first-child { position: initial; }
-					.c2c-ati-image { position: initial; left: 0; }
-				}
-
+	.c2c-ati-image { position: absolute; left: 400px; }
+	.appearance_page_admin-trim-interface-admin-trim-interface .form-table th { width: 300px; }
+	.appearance_page_admin-trim-interface-admin-trim-interface .c2c-form .form-table tr:first-child { position: absolute; }
+	@media screen and (max-width: 782px) {
+		.appearance_page_admin-trim-interface-admin-trim-interface .c2c-form .form-table tr:first-child { position: initial; }
+		.c2c-ati-image { position: initial; left: 0; }
+	}
 CSS;
 		}
 
@@ -376,10 +375,9 @@ CSS;
 				$css = "$css { display:none; }\n";
 			}
 			echo <<<HTML
-		<style type="text/css">
-		{$css}
-		{$extra_css}
-		</style>
+<style type="text/css">{$css}
+{$extra_css}
+</style>
 
 HTML;
 		}

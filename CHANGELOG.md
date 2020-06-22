@@ -9,6 +9,7 @@
     * Note compatibility through WP 5.4+
     * Drop compatibility with version of WP older than 4.9
 * New: Add TODO.md and move existing TODO list from top of main plugin file into it
+* Change: Adjust output spacing for CSS
 * Change: Note compatibility through WP 5.4+
 * Change: Drop compatibility for version of WP older than 4.9
 * Change: Add missing text domain from a few string translation calls
