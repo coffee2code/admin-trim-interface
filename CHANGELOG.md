@@ -1,6 +1,7 @@
 # Changelog
 
 ## _(in-progress)_
+* New: Add ability to trim "My Sites" icon in admin bar
 * Change: Prevent output of plugin-page specific CSS elsewhere
 * Change: Discontinue handling for contextual help text added via deprecated filter `contextual_help`
 * Change: Update plugin framework to 050

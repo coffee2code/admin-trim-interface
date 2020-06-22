@@ -121,6 +121,12 @@ final class c2c_AdminTrimInterface extends c2c_AdminTrimInterface_Plugin_050 {
 				'numbered' => true,
 				'label'    => __( 'Hide WordPress logo in admin bar?', 'admin-trim-interface' ),
 			),
+			'hide_site_icon' => array(
+				'input'    => 'checkbox',
+				'default'  => false,
+				'numbered' => true,
+				'label'    => __( 'Hide sites icon in admin bar?', 'admin-trim-interface' ),
+			),
 			'hide_home_icon' => array(
 				'input'    => 'checkbox',
 				'default'  => false,
@@ -338,6 +344,15 @@ final class c2c_AdminTrimInterface extends c2c_AdminTrimInterface_Plugin_050 {
 
 		// Don't bother outputting CSS related to admin bar if it isn't showing.
 		if ( is_admin_bar_showing() ) {
+
+			// Remove the sites icon from admin bar.
+			if ( $options['hide_site_icon'] ) {
+				if ( is_admin() ){
+					$extra_css .= '.wp-admin #wpwrap #wpadminbar #wp-admin-bar-my-sites > .ab-item::before { content: ""; }' . "\n";
+				} else {
+					$extra_css .= 'body #wpadminbar #wp-admin-bar-my-sites > .ab-item::before { content: ""; }' . "\n";
+				}
+			}
 
 			// Remove the home icon from admin bar.
 			if ( $options['hide_home_icon'] ) {

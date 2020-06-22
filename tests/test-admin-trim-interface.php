@@ -53,6 +53,7 @@ class Admin_Trim_Interface_Test extends WP_UnitTestCase {
 		return array(
 			array( 'hide_wp_logo' ),
 			array( 'hide_home_icon' ),
+			array( 'hide_site_icon' ),
 			array( 'hide_howdy' ),
 			array( 'hide_username' ),
 			array( 'hide_avatar' ),
