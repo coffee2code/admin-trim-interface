@@ -23,6 +23,8 @@ class Admin_Trim_Interface_Test extends WP_UnitTestCase {
 
 		// Reset options
 		$this->obj->reset_options();
+
+		unset( $GLOBALS['current_screen'] );
 	}
 
 
@@ -76,6 +78,14 @@ class Admin_Trim_Interface_Test extends WP_UnitTestCase {
 		$defaults = $this->obj->get_options();
 		$settings = wp_parse_args( (array) $settings, $defaults );
 		$this->obj->update_option( $settings, true );
+	}
+
+	protected function set_current_screen( $screen = '' ) {
+		if ( ! $screen ) {
+			$screen = 'themes.php?page=admin-trim-interface%2Fadmin-trim-interface.php';
+		}
+
+		set_current_screen( $screen );
 	}
 
 
@@ -169,8 +179,7 @@ class Admin_Trim_Interface_Test extends WP_UnitTestCase {
 
 	public function test_show_admin_notices_does_not_show_when_not_on_settings_page() {
 		add_settings_error( 'foo', 'bar', 'Capital P dangit!', 'error' );
-		$path = 'themes.php?page=admin-trim-interface%2Fadmin-trim-interface.php';
-		set_current_screen( $path );
+		$this->set_current_screen();
 
 		$this->expectOutputRegex( '~^$~', $this->obj->show_admin_notices() );
 	}
@@ -178,7 +187,7 @@ class Admin_Trim_Interface_Test extends WP_UnitTestCase {
 	public function test_show_admin_notices_shows_when_not_on_settings_page() {
 		add_settings_error( 'foo', 'bar', 'Capital P dangit!', 'error' );
 
-		set_current_screen( 'themes.php?page=admin-trim-interface%2Fadmin-trim-interface.php' );
+		$this->set_current_screen();
 		$this->obj->options_page = 'themesphppageadmin-trim-interface2fadmin-trim-interface';
 
 		$expected = "<div id='setting-error-bar' class='notice notice-error settings-error is-dismissible'> \n<p><strong>Capital P dangit!</strong></p></div> \n<div id='setting-error-bar' class='notice notice-error settings-error is-dismissible'> \n<p><strong>Capital P dangit!</strong></p></div> \n";
