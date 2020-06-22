@@ -393,7 +393,8 @@ CSS;
 			$type_attr = current_theme_supports( 'html5', 'style' ) ? '' : ' type="text/css"';
 
 			echo <<<HTML
-<style{$type_attr}>{$css}
+<style{$type_attr}>
+{$css}
 {$extra_css}
 </style>
 
