@@ -2,6 +2,7 @@
 
 ## _(in-progress)_
 * New: Add ability to trim "My Sites" icon in admin bar
+* New: Add HTML5 compliance by omitting `type` attribute when the theme supports 'html5'
 * Change: Prevent output of plugin-page specific CSS elsewhere
 * Change: Discontinue handling for contextual help text added via deprecated filter `contextual_help`
 * Change: Update plugin framework to 050
