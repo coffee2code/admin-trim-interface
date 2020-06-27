@@ -21,6 +21,7 @@
 * Change: Remove unnecessary numbering of sole placeholder in string
 * Change: Update links to coffee2code.com to be HTTPS
 * Change: Update legend image
+* Change: Update screenshot images
 * Unit tests:
     * New: Add tests for `add_css()`, `admin_init()`, `explain_nonce()`, `show_admin_notices()`, `show_legend_image()`
     * New: Add test for setting name
