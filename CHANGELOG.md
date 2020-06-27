@@ -20,6 +20,7 @@
 * Change: Add missing text domain from a few string translation calls
 * Change: Remove unnecessary numbering of sole placeholder in string
 * Change: Update links to coffee2code.com to be HTTPS
+* Change: Update legend image
 * Unit tests:
     * New: Add tests for `add_css()`, `admin_init()`, `explain_nonce()`, `show_admin_notices()`, `show_legend_image()`
     * New: Add test for setting name
