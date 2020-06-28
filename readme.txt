@@ -6,7 +6,7 @@ License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 Requires at least: 4.9
 Tested up to: 5.4
-Stable tag: 3.3.1
+Stable tag: 3.4
 
 Customize the WordPress admin pages by selectively removing interface elements on a per-user basis.
 
@@ -63,6 +63,43 @@ This plugin does not prevent access to the admin dashboard; it merely provides t
 
 == Changelog ==
 
+= 3.4 (2020-06-27) =
+
+### Highlights:
+
+This recommended release adds the ability to hide the "My Sites" icon, prevents output of plugin-specific settings styles on other admin pages, omits the `type` attribute for `style` tag for themes that support 'html5', updates the plugin framework, adds a TODO.md file, updates a few URLs to be HTTPS, expands unit testing, updates compatibility to be WP 4.9 through 5.4+, and more.
+
+### Details:
+
+* New: Add ability to trim "My Sites" icon in admin bar
+* New: Add HTML5 compliance by omitting `type` attribute when the theme supports 'html5'
+* Change: Prevent output of plugin-page specific CSS elsewhere
+* Change: Discontinue handling for contextual help text added via deprecated filter `contextual_help`
+* Change: Update plugin framework to 050
+    * Allow a hash entry to literally have '0' as a value without being entirely omitted when saved
+    * Output donation markup using `printf()` rather than using string concatenation
+    * Update copyright date (2020)
+    * Note compatibility through WP 5.4+
+    * Drop compatibility with version of WP older than 4.9
+* New: Add TODO.md and move existing TODO list from top of main plugin file into it
+* Change: Refactor handling of dynamic CSS rules and ensure they output properly indented
+* Change: Adjust some CSS formatting (add second colon for `::before` and spaces around `>`)
+* Change: Adjust output spacing for CSS
+* Change: Note compatibility through WP 5.4+
+* Change: Drop compatibility for version of WP older than 4.9
+* Change: Add missing text domain from a few string translation calls
+* Change: Remove unnecessary numbering of sole placeholder in string
+* Change: Update links to coffee2code.com to be HTTPS
+* Change: Update legend image
+* Change: Update screenshot images
+* Unit tests:
+    * New: Add tests for `add_css()`, `admin_init()`, `explain_nonce()`, `show_admin_notices()`, `show_legend_image()`
+    * New: Add test for setting name
+    * New: Add helper `set_current_screen()` for setting the current screen, defaulting to plugin's setting page
+    * Change: Store plugin instance in test object to simplify referencing it
+    * Change: Update tests for default hooks, removing a duplicate and adding 2 that were missing
+    * Change: Use HTTPS for link to WP SVN repository in bin script for configuring unit tests (and delete commented-out code)
+
 = 3.3.1 (2019-12-16) =
 * Unit tests:
     * Change: Update unit test install script and bootstrap to use latest WP unit test repo
@@ -86,64 +123,13 @@ This plugin does not prevent access to the admin dashboard; it merely provides t
 * Change: Update License URI to be HTTPS
 * Change: Split paragraph in README.md's "Support" section into two
 
-= 3.2 (2018-06-15) =
-* Fix: Show admin notices on plugin's setting page
-* New: Add basic unit tests
-* Change: Update plugin framework to 048
-    * 048:
-    * When resetting options, delete the option rather than setting it with default values
-    * Prevent double "Settings reset" admin notice upon settings reset
-    * 047:
-    * Don't save default setting values to database on install
-    * Change "Cheatin', huh?" error messages to "Something went wrong.", consistent with WP core
-    * Note compatibility through WP 4.9+
-    * Drop compatibility with version of WP older than 4.7
-    * 046:
-    * Fix `reset_options()` to reference instance variable `$options`
-    * Note compatibility through WP 4.7+
-    * Update copyright date (2017)
-    * 045:
-    * Ensure `reset_options()` resets values saved in the database
-    * 044:
-    * Add `reset_caches()` to clear caches and memoized data. Use it in `reset_options()` and `verify_config()`.
-    * Add `verify_options()` with logic extracted from `verify_config()` for initializing default option attributes.
-    * Add  `add_option()` to add a new option to the plugin's configuration.
-    * Add filter 'sanitized_option_names' to allow modifying the list of whitelisted option names.
-    * Change: Refactor `get_option_names()`.
-    * 043:
-    * Disregard invalid lines supplied as part of hash option value.
-    * 042:
-    * Update `disable_update_check()` to check for HTTP and HTTPS for plugin update check API URL.
-    * Translate "Donate" in footer message.
-    * Note compatibility through WP 4.5.
-    * 041:
-    * For a setting that is of datatype array, ensure its default value is an array.
-    * Make `verify_config()` public.
-    * Use `<p class="description">` for input field help text instead of custom styled span.
-    * Remove output of markup for adding icon to setting page header.
-    * Remove styling for .c2c-input-help.
-    * Add braces around the few remaining single line conditionals.
-* New: Add README.md
-* New: Add LICENSE file
-* Change: Give settings checkboxes more width so checkboxes don't always flow below their labels
-* Change: Improve responsiveness of settings page
-* Change: Store setting name in constant
-* Change: Update session expiration error message to sync with one that WP core uses
-* Change: Switch to outputting markup with `printf()`
-* Change: (Hardening) Sanitize screenshot URL before output (for future-proofing)
-* Change: Make legend image's title and alt text translatable
-* Change: Minor code reformatting
-* Change: Add GitHub link to readme
-* Change: Note compatibility through WP 4.9+
-* Change: Drop compatibility with versions of WP older than 4.7
-* Change: Update copyright date (2018)
-* Change: Update installation instruction to prefer built-in installer over .zip file
-* Change: Fix changelog entry for v3.1 for proper rendering in Plugin Directory
-
 _Full changelog is available in [CHANGELOG.md](https://github.com/coffee2code/admin-trim-interface/blob/master/CHANGELOG.md)._
 
 
 == Upgrade Notice ==
+
+= 3.4 =
+Recommended update: added ability to hide "My Sites" icon, prevented output of styles for plugin's settings on other admin pages, updated plugin framework, added TODO.md file, updated a few URLs to be HTTPS, expanded unit testing, updated compatibility to be WP 4.9-5.4+, and more.
 
 = 3.3.1 =
 Trivial update: modernized unit tests and noted compatibility through WP 5.3+
