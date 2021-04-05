@@ -296,7 +296,7 @@ class Admin_Trim_Interface_Test extends WP_UnitTestCase {
 
 	public function test_show_legend_image() {
 		$link = 'http://example.org/wp-content/plugins/var/wp-plugins/admin-trim-interface/screenshot-1.png';
-		$expected = '<a href="' . $link . '" title="Settings to admin interface mapping; click to view full size" class="c2c-ati-image"><img src="' . $link . '" width="425" alt="Settings to admin interface mapping" />';
+		$expected = '<a href="' . $link . '" title="Settings to admin interface mapping; click to view full size" class="c2c-ati-image"><img src="' . $link . '" width="404" alt="Settings to admin interface mapping" />';
 		$expected .= '<br /><center><em>Click to view full size.</em></center></a>';
 
 		$this->expectOutputRegex( '~^' . preg_quote( $expected ) . '$~', $this->obj->show_legend_image() );
