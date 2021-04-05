@@ -29,6 +29,7 @@
 * Change: Move translation of all parent class strings into main plugin file
 * Change: Note compatibility through WP 5.7+
 * Change: Update copyright date (2021)
+* Change: Tweak formatting for readme.txt changelog entry for v3.4
 
 ## 3.4 _(2020-06-27)_
 

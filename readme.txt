@@ -65,11 +65,12 @@ This plugin does not prevent access to the admin dashboard; it merely provides t
 
 = 3.4 (2020-06-27) =
 
-### Highlights:
+= 3.4 (2020-06-27) =
+Highlights:
 
-This recommended release adds the ability to hide the "My Sites" icon, prevents output of plugin-specific settings styles on other admin pages, omits the `type` attribute for `style` tag for themes that support 'html5', updates the plugin framework, adds a TODO.md file, updates a few URLs to be HTTPS, expands unit testing, updates compatibility to be WP 4.9 through 5.4+, and more.
+* This recommended release adds the ability to hide the "My Sites" icon, prevents output of plugin-specific settings styles on other admin pages, omits the `type` attribute for `style` tag for themes that support 'html5', updates the plugin framework, adds a TODO.md file, updates a few URLs to be HTTPS, expands unit testing, updates compatibility to be WP 4.9 through 5.4+, and more.
 
-### Details:
+Details:
 
 * New: Add ability to trim "My Sites" icon in admin bar
 * New: Add HTML5 compliance by omitting `type` attribute when the theme supports 'html5'
