@@ -1,6 +1,13 @@
 # Changelog
 
-## _(in-progress)_
+## 3.5 _(2021-04-05)_
+
+### Highlights:
+
+This minor release updates the plugin framework and notes compatibility through WP 5.7+.
+
+### Details:
+
 * Change: Update plugin framework to 060
     * 060:
     * Rename class from `c2c_{PluginName}_Plugin_051` to `c2c_Plugin_060`

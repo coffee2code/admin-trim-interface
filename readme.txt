@@ -6,7 +6,7 @@ License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 Requires at least: 4.9
 Tested up to: 5.7
-Stable tag: 3.4
+Stable tag: 3.5
 
 Customize the WordPress admin pages by selectively removing interface elements on a per-user basis.
 
@@ -63,7 +63,42 @@ This plugin does not prevent access to the admin dashboard; it merely provides t
 
 == Changelog ==
 
-= 3.4 (2020-06-27) =
+= 3.5 (2021-04-05) =
+Highlights:
+
+* This minor release updates the plugin framework and notes compatibility through WP 5.7+.
+
+Details:
+
+* Change: Update plugin framework to 060
+    * 060:
+    * Rename class from `c2c_{PluginName}_Plugin_051` to `c2c_Plugin_060`
+    * Move string translation handling into inheriting class making the plugin framework code plugin-agnostic
+        * Add abstract function `get_c2c_string()` as a getter for translated strings
+        * Replace all existing string usage with calls to `get_c2c_string()`
+    * Handle WordPress's deprecation of the use of the term "whitelist"
+        * Change: Rename `whitelist_options()` to `allowed_options()`
+        * Change: Use `add_allowed_options()` instead of deprecated `add_option_whitelist()` for WP 5.5+
+        * Change: Hook `allowed_options` filter instead of deprecated `whitelist_options` for WP 5.5+
+    * New: Add initial unit tests (currently just covering `is_wp_version_cmp()` and `get_c2c_string()`)
+    * Add `is_wp_version_cmp()` as a utility to compare current WP version against a given WP version
+    * Refactor `contextual_help()` to be easier to read, and correct function docblocks
+    * Don't translate urlencoded donation email body text
+    * Add inline comments for translators to clarify purpose of placeholders
+    * Change PHP package name (make it singular)
+    * Tweak inline function description
+    * Note compatibility through WP 5.7+
+    * Update copyright date (2021)
+    * 051:
+    * Allow setting integer input value to include commas
+    * Use `number_format_i18n()` to format integer value within input field
+    * Update link to coffee2code.com to be HTTPS
+    * Update `readme_url()` to refer to plugin's readme.txt on plugins.svn.wordpress.org
+    * Remove defunct line of code
+* Change: Move translation of all parent class strings into main plugin file
+* Change: Note compatibility through WP 5.7+
+* Change: Update copyright date (2021)
+* Change: Tweak formatting for readme.txt changelog entry for v3.4
 
 = 3.4 (2020-06-27) =
 Highlights:
@@ -108,26 +143,13 @@ Details:
 * Change: Note compatibility through WP 5.3+
 * Change: Update copyright date (2020)
 
-= 3.3 (2019-04-06) =
-* Change: Initialize plugin on `plugins_loaded` action instead of on load
-* Change: Update plugin framework to 049
-    * 049:
-    * Correct last arg in call to `add_settings_field()` to be an array
-    * Wrap help text for settings in `label` instead of `p`
-    * Only use `label` for help text for checkboxes, otherwise use `p`
-    * Ensure a `textarea` displays as a block to prevent orphaning of subsequent help text
-    * Note compatibility through WP 5.1+
-    * Update copyright date (2019)
-* New: Add CHANGELOG.md file and move all but most recent changelog entries into it
-* Change: Note compatibility through WP 5.1+
-* Change: Update copyright date (2019)
-* Change: Update License URI to be HTTPS
-* Change: Split paragraph in README.md's "Support" section into two
-
 _Full changelog is available in [CHANGELOG.md](https://github.com/coffee2code/admin-trim-interface/blob/master/CHANGELOG.md)._
 
 
 == Upgrade Notice ==
+
+= 3.5 =
+Minor release: updated plugin framework to v060, noted compatibility through WP 5.7+, and updated copyright date (2021).
 
 = 3.4 =
 Recommended update: added ability to hide "My Sites" icon, prevented output of styles for plugin's settings on other admin pages, updated plugin framework, added TODO.md file, updated a few URLs to be HTTPS, expanded unit testing, updated compatibility to be WP 4.9-5.4+, and more.
