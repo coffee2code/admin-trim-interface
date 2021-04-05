@@ -6,5 +6,6 @@ The following list comprises ideas, suggestions, and known issues, all of which 
 
 * Options to remove other admin bar nodes: updates, comments, new content, search (front-end)
 * Add unit test coverage for `hide_help_tabs()`, `hide_dashboard()`, `admin_bar_menu()`, `options_page_description()`
+* When trimming admin bar user avatar, consider keeping the image in the popup menu (and if so, update associated screenshot)
 
 Feel free to make your own suggestions or champion for something already on the list (via the [plugin's support forum on WordPress.org](https://wordpress.org/support/plugin/admin-trim-interface/) or on [GitHub](https://github.com/coffee2code/admin-trim-interface/) as an issue or PR).
