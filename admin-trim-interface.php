@@ -180,6 +180,76 @@ final class c2c_AdminTrimInterface extends c2c_AdminTrimInterface_Plugin_050 {
 	}
 
 	/**
+	 * Returns translated strings used by c2c_Plugin parent class.
+	 *
+	 * @since 3.5
+	 *
+	 * @param string $string Optional. The string whose translation should be
+	 *                       returned, or an empty string to return all strings.
+	 *                       Default ''.
+	 * @return string|string[] The translated string, or if a string was provided
+	 *                         but a translation was not found then the original
+	 *                         string, or an array of all strings if $string is ''.
+	 */
+	public function get_c2c_string( $string = '' ) {
+		$strings = array(
+			'A value is required for: "%s"'
+				/* translators: %s: Label for setting. */
+				=> __( 'A value is required for: "%s"', 'admin-trim-interface' ),
+			'Click for more help on this plugin'
+				=> __( 'Click for more help on this plugin', 'admin-trim-interface' ),
+			' (especially check out the "Other Notes" tab, if present)'
+				=> __( ' (especially check out the "Other Notes" tab, if present)', 'admin-trim-interface' ),
+			'Coffee fuels my coding.'
+				=> __( 'Coffee fuels my coding.', 'admin-trim-interface' ),
+			'Did you find this plugin useful?'
+				=> __( 'Did you find this plugin useful?', 'admin-trim-interface' ),
+			'Donate'
+				=> __( 'Donate', 'admin-trim-interface' ),
+			'Expected integer value for: %s'
+				=> __( 'Expected integer value for: %s', 'admin-trim-interface' ),
+			'Invalid file specified for C2C_Plugin: %s'
+				/* translators: %s: Path to the plugin file. */
+				=> __( 'Invalid file specified for C2C_Plugin: %s', 'admin-trim-interface' ),
+			'More information about %1$s %2$s'
+				/* translators: 1: plugin name 2: plugin version */
+				=> __( 'More information about %1$s %2$s', 'admin-trim-interface' ),
+			'More Help'
+				=> __( 'More Help', 'admin-trim-interface' ),
+			'More Plugin Help'
+				=> __( 'More Plugin Help', 'admin-trim-interface' ),
+			'Please consider a donation'
+				=> __( 'Please consider a donation', 'admin-trim-interface' ),
+			'Reset Settings'
+				=> __( 'Reset Settings', 'admin-trim-interface' ),
+			'Save Changes'
+				=> __( 'Save Changes', 'admin-trim-interface' ),
+			'See the "Help" link to the top-right of the page for more help.'
+				=> __( 'See the "Help" link to the top-right of the page for more help.', 'admin-trim-interface' ),
+			'Settings'
+				=> __( 'Settings', 'admin-trim-interface' ),
+			'Settings reset.'
+				=> __( 'Settings reset.', 'admin-trim-interface' ),
+			'Something went wrong.'
+				=> __( 'Something went wrong.', 'admin-trim-interface' ),
+			'The plugin author homepage.'
+				=> __( 'The plugin author homepage.', 'admin-trim-interface' ),
+			"The plugin configuration option '%s' must be supplied."
+				/* translators: %s: The setting configuration key name. */
+				=>__( "The plugin configuration option '%s' must be supplied.", 'admin-trim-interface' ),
+			'This plugin brought to you by %s.'
+				/* translators: %s: Link to plugin author's homepage. */
+				=> __( 'This plugin brought to you by %s.', 'admin-trim-interface' ),
+		);
+
+		if ( ! $string ) {
+			return array_values( $strings );
+		}
+
+		return ! empty( $strings[ $string ] ) ? $strings[ $string ] : $string;
+	}
+
+	/**
 	 * Override the plugin framework's register_filters() to actually actions against filters.
 	 */
 	public function register_filters() {
