@@ -104,11 +104,11 @@ class Admin_Trim_Interface_Test extends WP_UnitTestCase {
 	}
 
 	public function test_plugin_framework_class_name() {
-		$this->assertTrue( class_exists( 'c2c_AdminTrimInterface_Plugin_050' ) );
+		$this->assertTrue( class_exists( 'c2c_Plugin_060' ) );
 	}
 
 	public function test_plugin_framework_version() {
-		$this->assertEquals( '050', $this->obj->c2c_plugin_version() );
+		$this->assertEquals( '060', $this->obj->c2c_plugin_version() );
 	}
 
 	public function test_get_version() {
