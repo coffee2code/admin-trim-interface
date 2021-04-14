@@ -2,7 +2,7 @@
 /**
  * @package C2C_Plugin
  * @author  Scott Reilly
- * @version 060
+ * @version 061
  */
 /*
 Basis for other plugins.
@@ -31,9 +31,9 @@ Compatible with WordPress 4.9 through 5.7+.
 
 defined( 'ABSPATH' ) or die();
 
-if ( ! class_exists( 'c2c_Plugin_060' ) ) :
+if ( ! class_exists( 'c2c_Plugin_061' ) ) :
 
-abstract class c2c_Plugin_060 {
+abstract class c2c_Plugin_061 {
 	protected $plugin_css_version = '009';
 	protected $options            = array();
 	protected $options_from_db    = '';
@@ -65,7 +65,7 @@ abstract class c2c_Plugin_060 {
 	 * @since 040
 	 */
 	public function c2c_plugin_version() {
-		return '060';
+		return '061';
 	}
 
 	/**
@@ -308,7 +308,7 @@ abstract class c2c_Plugin_060 {
 
 		add_filter(
 			$this->is_wp_version_cmp( '5.5' ) ? 'allowed_options' : 'whitelist_options',
-			array( __CLASS__, 'allowed_options' )
+			array( $this, 'allowed_options' )
 		);
 
 		foreach ( $this->get_option_names( false ) as $opt ) {
