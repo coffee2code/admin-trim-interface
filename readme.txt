@@ -6,7 +6,7 @@ License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 Requires at least: 4.9
 Tested up to: 5.7
-Stable tag: 3.5
+Stable tag: 3.5.1
 
 Customize the WordPress admin pages by selectively removing interface elements on a per-user basis.
 
@@ -62,6 +62,9 @@ This plugin does not prevent access to the admin dashboard; it merely provides t
 
 
 == Changelog ==
+
+= 3.5.1 (2021-04-14) =
+* Fix: Update plugin framework to 061 to fix a bug preventing settings from getting saved
 
 = 3.5 (2021-04-05) =
 Highlights:
@@ -136,17 +139,13 @@ Details:
     * Change: Update tests for default hooks, removing a duplicate and adding 2 that were missing
     * Change: Use HTTPS for link to WP SVN repository in bin script for configuring unit tests (and delete commented-out code)
 
-= 3.3.1 (2019-12-16) =
-* Unit tests:
-    * Change: Update unit test install script and bootstrap to use latest WP unit test repo
-    * New: Add test that plugin initializes itself on `plugins_loaded`
-* Change: Note compatibility through WP 5.3+
-* Change: Update copyright date (2020)
-
 _Full changelog is available in [CHANGELOG.md](https://github.com/coffee2code/admin-trim-interface/blob/master/CHANGELOG.md)._
 
 
 == Upgrade Notice ==
+
+= 3.5.1 =
+Recommended bugfix release: fixed a bug preventing settings from getting saved; updated plugin framework to v061
 
 = 3.5 =
 Minor release: updated plugin framework to v060, noted compatibility through WP 5.7+, and updated copyright date (2021).
